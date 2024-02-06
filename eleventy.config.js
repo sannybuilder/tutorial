@@ -8,7 +8,6 @@ const pluginNavigation = require("@11ty/eleventy-navigation");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 const pascal = require("prismjs/components/prism-pascal");
 
-
 const pluginImages = require("./eleventy.config.images.js");
 const toc = require("./_data/toc.json");
 
@@ -46,10 +45,20 @@ module.exports = function (eleventyConfig) {
 						lookbehind: true,
 					},
 				],
-				'comment': {
+				comment: {
 					pattern: /\/\*[\s\S]*?\*\/|\{[\s\S]*?\}|\/\/.*/,
-					greedy: true
+					greedy: true,
 				},
+				string: [
+					{
+						pattern: /(?:'(?:''|[^'\r\n])*'(?!')|#[&$%]?[a-f\d]+)+|\^[a-z]/i,
+						greedy: true,
+					},
+					{
+						pattern: /(?:"(?:""|[^"\r\n])*"(?!")|#[&$%]?[a-f\d]+)+|\^[a-z]/i,
+						greedy: true,
+					},
+				],
 			});
 		},
 	});

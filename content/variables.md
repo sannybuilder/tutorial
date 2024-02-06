@@ -1,4 +1,4 @@
-Opposite to number and string literals are variables. A _variable_ is a named storage for a value. A variable can store a number or a string. Its value can change over time. This operation is called assignment. A variable can be assigned a literal or another variable. For example:
+Variables are opposite to number and string literals. A _variable_ is a named storage for a value. A variable can store a number or a string. Its value can change over time through the operation called assignment. A variable can be assigned a literal or a value of another variable. For example:
 
 ```sb
 int hour = 12
@@ -6,9 +6,11 @@ int minute = 30
 
 hour = 13
 minute = 0
+
+hour = minute
 ```
 
-The first two lines declare two variables, `hour` and `minute`, and assign them values `12` and `30` respectively. The next two lines change the values of these variables to `13` and `0`.
+The first two lines declare two variables, `hour` and `minute`, and assign them values `12` and `30` respectively. The next two lines change the values of these variables to `13` and `0`. Finally, the last line assigns the value of `minute` to `hour`. After this line, both `hour` and `minute` will have the value of `0`.
 
 Variables that hold integer values are declared with the `int` keyword. You can then use them in commands that expect an integer number. For example:
 
