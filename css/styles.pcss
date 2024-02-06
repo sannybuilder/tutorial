@@ -1,0 +1,101 @@
+/* Defaults */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	display: flex;
+	min-height: 100%;
+}
+body {
+	flex-grow: 1;
+	display: flex;
+	@apply bg-slate-900 text-neutral-200;
+	font-family: sans-serif;
+	flex-direction: column;
+}
+p {
+	margin-bottom: 1rem;
+}
+
+pre {
+	display: block;
+	@apply mb-4 rounded-md bg-slate-800 p-4 text-neutral-200;
+	font-family: Consolas, "Courier New", monospace;
+	line-height: 1;
+}
+
+h2 {
+	@apply mb-4 text-2xl font-bold;
+}
+
+a {
+	@apply text-slate-400 hover:text-slate-300;
+}
+
+code {
+	@apply rounded-md bg-slate-800 text-neutral-200;
+	@apply text-sm;
+}
+pre code.hljs {
+	@apply bg-slate-800 text-neutral-200;
+	padding: 0 !important;
+}
+
+p code {
+	@apply p-1;
+	@apply text-sm;
+}
+
+.container {
+	@apply mx-auto px-4;
+	max-width: 1200px;
+}
+
+.btn {
+	@apply select-none rounded-lg border border-slate-600 px-6 py-3 text-center;
+	@apply align-middle font-sans text-xs font-bold uppercase transition-all;
+	@apply hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none;
+	@apply disabled:opacity-50 disabled:shadow-none;
+}
+
+article img {
+	@apply my-3 border border-slate-600;
+}
+
+article a:not(.btn) {
+	@apply underline;
+}
+
+.wrapper {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.wrapper > * {
+	flex: 1 100%;
+}
+
+@media all and (min-width: 600px) {
+	.aside {
+		flex: 1 auto;
+	}
+}
+
+@media all and (min-width: 768px) {
+	.main {
+		flex: 3 0px;
+		max-width: 100%;
+	}
+	.aside-1 {
+		order: 1;
+		max-width: 300px;
+	}
+	.main {
+		order: 2;
+	}
+	.aside-2 {
+		order: 3;
+	}
+}
