@@ -266,12 +266,12 @@ pre[class*="language-diff-"] {
 <p>Create a new CLEO script file by clicking <code>File</code> -&gt; <code>New CLEO Script...</code>.</p>
 <img src="/img/comp-2.png" alt="New CLEO script menu" width="400"/>
 <p>After <code>nop</code> add a new line:</p>
-<pre class="language-sb" tabindex="0"><code class="language-sb"><span class="token keyword">print_string_now</span> "Hello<span class="token punctuation">,</span> world!" <span class="token number">2000</span></code></pre>
+<pre class="language-sb" tabindex="0"><code class="language-sb"><span class="token keyword">print_string_now</span> <span class="token string">"Hello, world!"</span> <span class="token number">2000</span></code></pre>
 <p>Your script should look like this:</p>
 <pre class="language-sb" tabindex="0"><code class="language-sb"><span class="token directive marco property">{$CLEO .cs}</span>
 nop
 
-<span class="token keyword">print_string_now</span> "Hello<span class="token punctuation">,</span> world!" <span class="token number">2000</span>
+<span class="token keyword">print_string_now</span> <span class="token string">"Hello, world!"</span> <span class="token number">2000</span>
 
 <span class="token keyword">terminate_this_custom_script</span></code></pre>
 <p>Save the file under any name, e.g. <code>show_message.txt</code>. Click <code>Run</code> -&gt; <code>Compile + Copy</code> or press <code>F7</code> to compile the script and copy it to the game folder.</p>

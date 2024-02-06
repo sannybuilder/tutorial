@@ -271,8 +271,8 @@ nop
 
 <span class="token keyword">terminate_this_custom_script</span></code></pre>
 <p>Here you can see two commands: <code>nop</code> and <code>terminate_this_custom_script</code>, one that we saw already. <code>nop</code> does nothing, it is just a placeholder, but it comes in handy when using loops. We will discuss them in the next chapter. For now you can simply ignore or delete this line.</p>
-<p>The key part here is the first line: <code>{$CLEO .cs}</code>. Lines enclosed in <code>{$...}</code> are <em>directives</em>. They are special commands that alter Sanny Builder's behavior during <a href="./sanny-builder">compilation</a>.</p>
-<p><code>$CLEO</code> directive tells Sanny Builder to compile the script as a separate file with <code>.cs</code> extension. All you need to do after it is to copy the compiled file into the game folder. Sanny Builder will do it for you if you press <code>F7</code> or go to <code>Run</code> -&gt; <code>Compile + Copy</code>.</p>
+<p>The key part here is the first line: <code>{$CLEO .cs}</code>. Lines enclosed in <code>{$...}</code> are <em>directives</em>. They are special commands that alter Sanny Builder's behavior during <a href="/sanny-builder">compilation</a>.</p>
+<p><code>$CLEO</code> directive tells Sanny Builder to compile the script as a separate file with <code>.cs</code> extension. All you need to do is to copy the compiled <code>.cs</code> file into the game folder. Sanny Builder can do it for you if you press <code>F7</code> or go to <code>Run</code> -&gt; <code>Compile + Copy</code>.</p>
 <img src="/img/comp-3.png" alt="Compile+Copy menu" width="400"/>
 <p>Without <code>{$CLEO}</code> this script will be compiled into a <code>main.scm</code> file.</p>
 

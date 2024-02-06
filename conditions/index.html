@@ -262,18 +262,19 @@ pre[class*="language-diff-"] {
                     
 
 <h1>Conditions</h1>
-<p>Often you want to run some code only if a certain condition is met. For example, you might want to show a message if a certain button pressed.</p>
+<p>Often times you want to run some code only if a certain condition is met. For example, you might want to show a message if a certain button pressed.</p>
 <p>To do this, you can use the <code>if</code> statement. It has the following syntax:</p>
 <pre class="language-sb" tabindex="0"><code class="language-sb"><span class="token keyword">if</span> <span class="token operator">&lt;</span>condition<span class="token operator">></span>
 <span class="token keyword">then</span>
 <span class="token comment">// code to run if condition is true</span>
 <span class="token keyword">end</span></code></pre>
-<p>A <code>&lt;condition&gt;</code> is a conditional instruction. It is written just like any other command, but after execution it changes the status of the current <code>if</code> statement to <code>true</code> or <code>false</code>. If the status is <code>true</code>, the code inside the <code>then..end</code> block is executed. If the status is <code>false</code>, the code is skipped:</p>
+<p>where <code>&lt;condition&gt;</code> is a single conditional instruction. It is written just like any other command, but after execution it changes the status of the current <code>if</code> statement to <code>true</code> or <code>false</code>.</p>
+<p>If the status is <code>true</code>, the code inside the <code>then..end</code> block is executed. If the status is <code>false</code>, the code inside the <code>then..end</code> block is skipped:</p>
 <pre class="language-sb" tabindex="0"><code class="language-sb"><span class="token keyword">if</span> <span class="token keyword">is_key_pressed</span> <span class="token number">113</span> <span class="token comment">// F2</span>
 <span class="token keyword">then</span>
     <span class="token keyword">print_help</span> <span class="token string">'HELP_F2'</span>
 <span class="token keyword">end</span></code></pre>
-<p>This script will show a help message if the F2 key is pressed. If the F2 key is not pressed, the <code>then..end</code> block will be skipped, and <code>print_help</code> will not be executed.</p>
+<p>This script will show a help message only if the <code>F2</code> key is pressed.</p>
 
     <div class="mb-4 flex justify-between">
             <a class="btn" href=/script-spawn-vehicle/>← Hands-on: Spawning a Vehicle</a>

@@ -262,13 +262,15 @@ pre[class*="language-diff-"] {
                     
 
 <h1>Variables</h1>
-<p>Opposite to number and string literals are variables. A <em>variable</em> is a named storage for a value. A variable can store a number or a string. Its value can change over time. This operation is called assignment. A variable can be assigned a literal or another variable. For example:</p>
+<p>Variables are opposite to number and string literals. A <em>variable</em> is a named storage for a value. A variable can store a number or a string. Its value can change over time through the operation called assignment. A variable can be assigned a literal or a value of another variable. For example:</p>
 <pre class="language-sb" tabindex="0"><code class="language-sb"><span class="token keyword">int</span> hour <span class="token operator">=</span> <span class="token number">12</span>
 <span class="token keyword">int</span> minute <span class="token operator">=</span> <span class="token number">30</span>
 
 hour <span class="token operator">=</span> <span class="token number">13</span>
-minute <span class="token operator">=</span> <span class="token number">0</span></code></pre>
-<p>The first two lines declare two variables, <code>hour</code> and <code>minute</code>, and assign them values <code>12</code> and <code>30</code> respectively. The next two lines change the values of these variables to <code>13</code> and <code>0</code>.</p>
+minute <span class="token operator">=</span> <span class="token number">0</span>
+
+hour <span class="token operator">=</span> minute</code></pre>
+<p>The first two lines declare two variables, <code>hour</code> and <code>minute</code>, and assign them values <code>12</code> and <code>30</code> respectively. The next two lines change the values of these variables to <code>13</code> and <code>0</code>. Finally, the last line assigns the value of <code>minute</code> to <code>hour</code>. After this line, both <code>hour</code> and <code>minute</code> will have the value of <code>0</code>.</p>
 <p>Variables that hold integer values are declared with the <code>int</code> keyword. You can then use them in commands that expect an integer number. For example:</p>
 <pre class="language-sb" tabindex="0"><code class="language-sb"><span class="token keyword">int</span> hour <span class="token operator">=</span> <span class="token number">12</span>
 <span class="token keyword">int</span> minute <span class="token operator">=</span> <span class="token number">30</span>
@@ -281,7 +283,7 @@ minute <span class="token operator">=</span> <span class="token number">0</span>
 <span class="token keyword">set_time_scale</span> timeScale</code></pre>
 <p>Variables that hold string values are declared with either <code>string</code> or <code>longstring</code> keywords. Again, we will discuss the difference between them later. You can then use string variables in commands that expect a string. For example:</p>
 <pre class="language-sb" tabindex="0"><code class="language-sb"><span class="token keyword">string</span> gxtKey <span class="token operator">=</span> <span class="token string">'GXT_KEY'</span>
-<span class="token keyword">longstring</span> spriteName <span class="token operator">=</span> "DOWN"
+<span class="token keyword">longstring</span> spriteName <span class="token operator">=</span> <span class="token string">"DOWN"</span>
 
 <span class="token keyword">print_help</span> gxtKey
 <span class="token keyword">load_sprite</span> <span class="token number">1</span> spriteName</code></pre>
