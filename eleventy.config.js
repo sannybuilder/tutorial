@@ -36,14 +36,6 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 	eleventyConfig.addPlugin(pluginBundle);
 
-	// Filters
-	eleventyConfig.addFilter("readableDate", (dateObj, format, zone) => {
-		// Formatting tokens for Luxon: https://moment.github.io/luxon/#/formatting?id=table-of-tokens
-		return DateTime.fromJSDate(dateObj, { zone: zone || "utc" }).toFormat(
-			format || "dd LLLL yyyy"
-		);
-	});
-
 	eleventyConfig.addFilter("htmlDateString", (dateObj) => {
 		// dateObj input: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
 		return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("yyyy-LL-dd");
@@ -77,6 +69,22 @@ module.exports = function (eleventyConfig) {
 		return null;
 	});
 
+	eleventyConfig.addFilter("pageTitle", function (slug) {
+		const sections = toc.sections;
+		for (let j = 0; j < sections.length; j++) {
+			for (let i = 0; i < sections[j].pages.length; i++) {
+				if (slug === sections[j].pages[i].slug) {
+					return (
+						sections[j].pages[i].name || null
+					);
+				}
+			}
+		}
+
+		return null;
+	});
+
+
 	// Customize Markdown library settings:
 	eleventyConfig.amendLibrary("md", (mdLib) => {
 		mdLib.use(markdownItAnchor, {
@@ -86,7 +94,7 @@ module.exports = function (eleventyConfig) {
 				symbol: "#",
 				ariaHidden: false,
 			}),
-			level: [1, 2, 3, 4],
+			level: [2, 3, 4],
 			slugify: eleventyConfig.getFilter("slugify"),
 		});
 	});

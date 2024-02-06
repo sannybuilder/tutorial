@@ -5,7 +5,7 @@
 			"pages": [
 				{
 					"name": "Welcome",
-					"slug": "/welcome/"
+					"slug": "/"
 				}
 			]
 		},

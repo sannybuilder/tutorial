@@ -24,6 +24,7 @@ jobs:
       - name: Build gh-pages
         run: |
           npm install
+          npm run prod:css
           npm run build
 
       - name: Deploy gh-pages
