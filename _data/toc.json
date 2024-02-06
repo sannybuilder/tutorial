@@ -1,0 +1,118 @@
+{
+	"sections": [
+		{
+			"name": "",
+			"pages": [
+				{
+					"name": "Welcome",
+					"slug": "/welcome/"
+				}
+			]
+		},
+		{
+			"name": "Chapter 0: Prerequisites",
+			"pages": [
+				{
+					"name": "Setting up the environment",
+					"slug": "/setup/"
+				},
+				{
+					"name": "CLEO Library",
+					"slug": "/cleo-library/"
+				},
+				{
+					"name": "Compiling scripts with Sanny Builder",
+					"slug": "/sanny-builder/"
+				},
+				{
+					"name": "Stripped main.scm",
+					"slug": "/stripped-scm/"
+				}
+			]
+		},
+		{
+			"name": "Chapter I: Hello, World!",
+			"pages": [
+				{
+					"name": "Instructions",
+					"slug": "/instructions/"
+				},
+				{
+					"name": "Parameters",
+					"slug": "/parameters/"
+				},
+				{
+					"name": "Numbers",
+					"slug": "/numbers/",
+					"level": 2
+				},
+				{
+					"name": "Strings",
+					"slug": "/strings/",
+					"level":2
+				},
+				{
+					"name": "Comments",
+					"slug": "/comments/"
+				},
+				{
+					"name": "$CLEO Directive",
+					"slug": "/cleo-directive/"
+				},
+				{
+					"name": "Hands-on: Showing a Message",
+					"slug": "/script-show-message/"
+				}
+			]
+		},
+		{
+			"name": "Chapter II: Loops",
+			"pages": [
+				{
+					"name": "Variables",
+					"slug": "/variables/"
+				},
+				{
+					"name": "WAIT command",
+					"slug": "/wait/"
+				},
+				{
+					"name": "WHILE Loop",
+					"slug": "/while/"
+				},
+				{
+					"name": "WHILE TRUE",
+					"slug": "/while-true/",
+					"level": 2
+				},
+				{
+					"name": "Hands-on: Spawning a Vehicle",
+					"slug": "/script-spawn-vehicle/"
+				}
+			]
+		},
+		{
+			"name": "Chapter III: To Be Or Not To Be",
+			"pages": [
+				
+				{
+					"name": "Conditions",
+					"slug": "/conditions/"
+				},
+				{
+					"name": "IF..ELSE",
+					"slug": "/else/",
+					"level": 2
+				},
+				{
+					"name": "Negating Conditions",
+					"slug": "/negating-conditions/"
+				},
+				{
+					"name": "Multiple Conditions",
+					"slug": "/multiple-conditions/"
+				}
+			]
+		}
+	]
+}
