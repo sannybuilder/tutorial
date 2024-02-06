@@ -6,6 +6,8 @@ const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginBundle = require("@11ty/eleventy-plugin-bundle");
 const pluginNavigation = require("@11ty/eleventy-navigation");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
+const pascal = require("prismjs/components/prism-pascal");
+
 
 const pluginImages = require("./eleventy.config.images.js");
 const toc = require("./_data/toc.json");
@@ -15,7 +17,6 @@ module.exports = function (eleventyConfig) {
 	// For example, `./public/css/` ends up in `_site/css/`
 	eleventyConfig.addPassthroughCopy({
 		"./public/": "/",
-		"./node_modules/prismjs/themes/prism-okaidia.css": "/css/prism-okaidia.css",
 	});
 
 	// Run Eleventy when these files change:
@@ -31,6 +32,26 @@ module.exports = function (eleventyConfig) {
 	// eleventyConfig.addPlugin(pluginRss);
 	eleventyConfig.addPlugin(pluginSyntaxHighlight, {
 		preAttributes: { tabindex: 0 },
+		init: function ({ Prism }) {
+			Prism.languages.sb = Prism.languages.extend("pascal", {
+				keyword: [
+					{
+						pattern:
+							/(^|[^&])\b(?:terminate_this_custom_script|jump|set_time_scale|set_car_density_multiplier|set_time_of_day|print_help|load_sprite|is_key_pressed|print_string_now)\b/i,
+						lookbehind: true,
+					},
+					{
+						pattern:
+							/(^|[^&])\b(?:IF|AND|CONST|DOWNTO|ELSE|END|FALSE|FOR|HEX|NOT|OR|REPEAT|THEN|TO|TRUE|UNKNOWN|VAR|UNTIL|WHILE|INTEGER|INT|FLOAT|SHORTSTRING|STRING|LONGSTRING|IMPORT|EXPORT|SWITCH|CASE|DEFAULT|FUNCTION)\b/i,
+						lookbehind: true,
+					},
+				],
+				'comment': {
+					pattern: /\/\*[\s\S]*?\*\/|\{[\s\S]*?\}|\/\/.*/,
+					greedy: true
+				},
+			});
+		},
 	});
 	eleventyConfig.addPlugin(pluginNavigation);
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
@@ -74,16 +95,13 @@ module.exports = function (eleventyConfig) {
 		for (let j = 0; j < sections.length; j++) {
 			for (let i = 0; i < sections[j].pages.length; i++) {
 				if (slug === sections[j].pages[i].slug) {
-					return (
-						sections[j].pages[i].name || null
-					);
+					return sections[j].pages[i].name || null;
 				}
 			}
 		}
 
 		return null;
 	});
-
 
 	// Customize Markdown library settings:
 	eleventyConfig.amendLibrary("md", (mdLib) => {

@@ -6,13 +6,13 @@ Create a new CLEO script file by clicking `File` -> `New CLEO Script...`.
 
 After `nop` add a new line:
 
-```cs
+```sb
 print_string_now "Hello, world!" 2000
 ```
 
 Your script should look like this:
 
-```cs
+```sb
 {$CLEO .cs}
 nop
 

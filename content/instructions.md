@@ -4,7 +4,7 @@ In Sanny Builder each instruction is written on a separate line. An instruction 
 
 Let's have a look at the shortest possible script that has only one instruction:
 
-```cs
+```sb
 terminate_this_custom_script
 ```
 

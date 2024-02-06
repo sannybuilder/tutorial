@@ -2,7 +2,7 @@ When checking for a condition, you can also specify what to do if the condition 
 
 An `if` statement with `else` has the following syntax:
 
-```cs
+```sb
 if <condition>
 then
 // code to run if condition is true
@@ -15,7 +15,7 @@ Note that you can't use `else` without `then`, and the `else` block must follow 
 
 Example:
 
-```cs
+```sb
 if is_key_pressed 113 // F2
 then
     print_help 'HELP_F2' // show message if F2 is pressed

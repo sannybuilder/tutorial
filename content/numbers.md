@@ -4,7 +4,7 @@ There are two types of numbers: integers and floats. Integers are whole numbers,
 
 Floats are numbers with a decimal point, such as `1.0`, `2.5`, `3.14`, etc. They usually represent physical quantities, such as speed and time, or coordinates of objects in the game world.
 
-```cs
+```sb
 set_time_scale 0.5
 set_car_density_multiplier 1.0
 ```

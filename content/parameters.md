@@ -1,6 +1,6 @@
 Most of the commands require additional information to work. For example, the command `create_car` requires a model of the car and the coordinates of the spawn location. This additional information is called _parameters_. Parameters are separated from the command name by a space:
 
-```cs
+```sb
 set_time_of_day 12 30
 ```
 

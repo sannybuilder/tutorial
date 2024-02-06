@@ -6,7 +6,7 @@ Sanny Builder makes it trivial. You need to go to `File` -> `New CLEO script...`
 
 Sanny Builder will create a basic template for you:
 
-```cs
+```sb
 {$CLEO .cs}
 nop
 

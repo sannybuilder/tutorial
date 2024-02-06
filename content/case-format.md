@@ -1,6 +1,6 @@
 Keywords and variable names in Sanny Builder are case insensitive. `INT variable` and `int Variable` are the same thing.
 
-```cs
+```sb
 INT variable = 1
 
 Variable = 2
@@ -8,7 +8,7 @@ Variable = 2
 
 String literals are encoded as is.
 
-```cs
+```sb
 string key1 = 'GXT_KEY'
 string key2 = 'gxt_key'
 ```

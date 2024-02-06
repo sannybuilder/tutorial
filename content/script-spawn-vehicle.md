@@ -1,6 +1,6 @@
 We will break down the script into smaller parts and explain each part in detail. The final script will look like this:
 
-```cs
+```sb
 {$CLEO .cs}
 nop
 
