@@ -4,13 +4,13 @@ Line comments start with `//` and end with the end of the line. For example:
 
 ```sb
 // End of script
-terminate_this_custom_script;
+terminate_this_custom_script
 ```
 
 Or:
 
 ```sb
-terminate_this_custom_script; // End of script
+terminate_this_custom_script // End of script
 ```
 
 Block comments start with `/*` and end with `*/`. They can span multiple lines:
