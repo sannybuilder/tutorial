@@ -4,11 +4,11 @@ We will break down the script into smaller parts and explain each part in detail
 {$CLEO .cs}
 nop
 
-while not is_key_pressed 113 // wait for F2 press
+while not is_key_pressed 116 // wait for F5 press
     wait 0
 end
 
-while is_key_pressed 113 // wait for F2 release
+while is_key_pressed 116 // wait for F5 release
     wait 0
 end
 
@@ -28,5 +28,3 @@ terminate_this_custom_script
 The result in game will look like this:
 
 <img src="/img/tut-1.png" alt="Cheetah spawn" />
-
-Ready to start? Let's go!
