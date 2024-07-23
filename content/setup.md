@@ -8,9 +8,7 @@ In this tutorial we will be using the most recent versions Sanny Builder and CLE
 
 *It's not recommended to install Sanny Builder in a folder that requires administrator privileges to access (e.g. `C:\Program Files (x86)`). If you do, you will have to run Sanny Builder as an administrator.*
 
-*3.* Download CLEO 5 archive from the the [official website](https://cleo.li). 
-
-<img src="/img/tut-2.png" alt="CLEO5 files" />
+*3.* Download CLEO 5 archive from the [official website](https://cleo.li). 
 
 *4.* Unpack the CLEO archive to the folder where you installed GTA San Andreas.
 
