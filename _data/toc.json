@@ -113,6 +113,33 @@
 					"slug": "/multiple-conditions/"
 				}
 			]
+		},
+		{
+			"name": "Chapter IV: Printing Texts",
+			"pages": [
+				{
+					"name": "Types of Messages",
+					"slug": "/types-of-messages"
+
+				},
+				{
+					"name": "Using GXT",
+					"slug": "/using-gxt"
+				},
+				{
+					"name": "Custom Text",
+					"slug": "/custom-text"
+
+				},
+				{
+					"name": "Drawing Text On Screen",
+					"slug": "/drawing-text-on-screen"
+				},
+				{
+					"name": "Formatting Strings",
+					"slug": "/formatting-strings"
+				}
+			]
 		}
 	]
 }
