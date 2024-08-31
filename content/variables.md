@@ -1,4 +1,4 @@
-Variables are opposite to number and string literals. A _variable_ is a named storage for a value. A variable can store a number or a string. Its value can change over time through the operation called assignment. A variable can be assigned a literal or a value of another variable. For example:
+A _variable_ is a named storage for a value. This value can change over time through the operation called assignment. A variable can be assigned a literal (e.g. a number or a string) or a value of another variable. For example:
 
 ```sb
 int hour = 12
