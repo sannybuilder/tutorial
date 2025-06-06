@@ -1,6 +1,6 @@
 `while true` is an infinite loop. It ends only with the `break` command or when the script is ended (e.g. using `terminate_this_script`).
 
-It is often used to create a main body of a CLEO script, which contantly awaits for a key press to trigger some action.
+It is often used to create the main body of a CLEO script which constantly awaits for the player input.
 
 ```
 while true
