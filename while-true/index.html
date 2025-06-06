@@ -289,7 +289,21 @@ pre[class*="language-diff-"] {
                     
 
 <h1>WHILE TRUE</h1>
-<p>TBD</p>
+<p><code>while true</code> is an infinite loop. It ends only with the <code>break</code> command or when the script is ended (e.g. using <code>terminate_this_script</code>).</p>
+<p>It is often used to create a main body of a CLEO script, which contantly awaits for a key press to trigger some action.</p>
+<pre><code>while true
+    wait 0
+    if
+        is_key_pressed 113 // F2
+    then
+        break
+    end
+
+    add_score {player} 0 {money} 10
+end
+terminate_this_script
+</code></pre>
+<p>This loop adds $1 to the player's account each frame until the F2 button is pressed to exit the loop. Note that after breaking from the loop, the script continues to the next command, which is <code>terminate_this_script</code>.</p>
 
     <div class="mb-4 flex justify-between">
             <a class="btn" href=/while/>← WHILE Loop</a>
