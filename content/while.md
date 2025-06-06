@@ -1,4 +1,4 @@
-Many things in the game are extended in time or depend on the player feedback. A car driving to a destination, a model file loading from the disk, a button awaiting to be pressed all require a specific condition to become true. Did the car reached the point, was the specific button pressed, is the model available for use? If not, wait and check again later. 
+Many things in the game are extended in time or depend on the player feedback. A car driving to a destination, a model file loading from the disk, a button awaiting to be pressed all require a specific condition to become true. Did the car reach the point, was the specific button pressed, is the model available for use? If not, wait and check again later. 
 
 We can validate certain condition continuosly, each frame, or with some delay. To achieve this in the code, a special construct exists: a loop.
 
