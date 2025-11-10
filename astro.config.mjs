@@ -22,6 +22,7 @@ export default defineConfig({
 			logo: {
 				src: './public/img/sanny.png',
 			},
+			favicon: '/img/sanny.png',
 			social: {
 				github: 'https://github.com/sannybuilder/tutorial',
                 discord: 'https://sannybuilder.com/discord',
@@ -92,15 +93,6 @@ export default defineConfig({
 						{ label: 'Multiple Conditions', slug: 'multiple-conditions' },
 					],
 				}
-			],
-			head: [
-				{
-					tag: 'link',
-					attrs: {
-						rel: 'icon',
-						href: '/img/sanny.png',
-					},
-				},
 			],
 		}),
 	],
