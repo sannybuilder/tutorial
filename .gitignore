@@ -1,4 +1,23 @@
-_site/
+# Astro build output
+dist/
+
+# Astro cache
+.astro/
+
+# Dependencies
 node_modules/
 package-lock.json
-public/css/styles.css
+
+# Environment variables
+.env
+.env.production
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
