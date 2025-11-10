@@ -65,7 +65,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"match": "\\b(jump|terminate_this_custom_script|set_time_scale|set_car_density_multiplier|set_time_of_day|print_help|load_sprite|is_key_pressed|print_string_now|print_big_string|print_formatted|nop|wait|create_car|request_model|has_model_loaded|mark_model_as_no_longer_needed|get_time_of_day|does_char_exist|locate_char_any_means_char_3d|is_player_playing|create_player|load_and_launch_mission|create_object|delete_object|add_blip_for_coord|remove_blip|set_object_coordinates|get_object_coordinates|is_button_pressed|store_car_char_is_in|warp_char_into_car|explode_car|set_car_health|get_car_health)\\b"
+					"match": "\\b(jump|terminate_this_script|set_time_scale|set_car_density_multiplier|set_time_of_day|print_help|load_sprite|is_key_pressed|print_string_now|print_big_string|print_formatted|nop|wait|create_car|request_model|has_model_loaded|mark_model_as_no_longer_needed|get_time_of_day|does_char_exist|locate_char_any_means_char_3d|is_player_playing|create_player|load_and_launch_mission|create_object|delete_object|add_blip_for_coord|remove_blip|set_object_coordinates|get_object_coordinates|is_button_pressed|store_car_char_is_in|warp_char_into_car|explode_car|set_car_health|get_car_health)\\b"
 				}
 			]
 		},
