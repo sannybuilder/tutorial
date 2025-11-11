@@ -17,9 +17,9 @@ PRINT_HELP {key} 'STOCK'
 
 <img src="/img/ch-04-04.png" alt="Help box with red text" />
 
-Some messages include placeholders for numbers, represented as ~1~. Regardless of their position and total number of placeholders, the token is always ~1~.
+Some messages include placeholders for numbers, represented as `~1~`. Regardless of their position and total number of placeholders, the token is always `~1~`.
 
-For example, the message displayed when you pick up a horseshoe is `Horseshoes ~1~ out of ~1~`, referenced by the key HO_ONE. To display it in the game, use one of the commands that include `WITH_NUMBER` in it. For two numbers, for example, use `PRINT_WITH_2_NUMBERS_NOW` or `PRINT_WITH_2_NUMBERS_BIG`:
+For example, the message displayed when you pick up a horseshoe is `Horseshoes ~1~ out of ~1~`, referenced by the key `HO_ONE`. To display it in the game, use one of the commands that include `WITH_NUMBER` in it. For two numbers, for example, use `PRINT_WITH_2_NUMBERS_NOW` or `PRINT_WITH_2_NUMBERS_BIG`:
 
 ```sb
 PRINT_WITH_2_NUMBERS_BIG {key} 'HO_ONE' {num1} 5 {num2} 50 {duration} 3000 {style} 1
