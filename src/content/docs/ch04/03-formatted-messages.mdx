@@ -1,0 +1,47 @@
+---
+title: Formatted Messages
+description: Showing different types of formatting
+slug: formatted-messages
+tableOfContents: true
+---
+
+## Native Formatting
+
+The game allows the use of special tokens to highlight different parts of text. They usually appear like a specific character surrounded by `~`, e.g. `~b~` or `~y~`. [This page](https://gtamods.com/wiki/GXT#Symbols_and_colors) describes each token in detail.
+
+For example, the GXT key `STOCK` references the message `~r~out of stock` (`~r~` means red), which in the game looks like this:
+
+```sb
+PRINT_HELP {key} 'STOCK'
+```
+
+<img src="/img/ch-04-04.png" alt="Help box with red text" />
+
+Some messages include placeholders for numbers, represented as ~1~. Regardless of their position and total number of placeholders, the token is always ~1~.
+
+For example, the message displayed when you pick up a horseshoe is `Horseshoes ~1~ out of ~1~`, referenced by the key HO_ONE. To display it in the game, use one of the commands that include `WITH_NUMBER` in it. For two numbers, for example, use `PRINT_WITH_2_NUMBERS_NOW` or `PRINT_WITH_2_NUMBERS_BIG`:
+
+```sb
+PRINT_WITH_2_NUMBERS_BIG {key} 'HO_ONE' {num1} 5 {num2} 50 {duration} 3000 {style} 1
+```
+
+<img src="/img/ch-04-05.png" alt="Formatted message with two numbers" />
+
+## CLEO Formatting
+
+CLEO supports C++-like inline formatting with placeholders that can be replaced with actual values at runtime. The syntax is similar to C++'s `printf` function. These commands have [`FORMATTED`](https://library.sannybuilder.com/#/sa/script?q=print%20formatted) in their name. For example, the following command would display the same message as above.
+
+```sb
+PRINT_BIG_FORMATTED  {format} "Horseshoes %d out of %d" {time} 3000 {style} 1 {args} 5 50
+```
+
+You can combine native and CLEO formatting for richer visual effects:
+
+```sb
+PRINT_BIG_FORMATTED  {format} "~r~Horseshoes %d out of %d" {time} 3000 {style} 1 {args} 5 50
+```
+
+<img
+	src="/img/ch-04-06.png"
+	alt="CLEO Formatted message with two numbers in red"
+/>

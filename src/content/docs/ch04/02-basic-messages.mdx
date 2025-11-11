@@ -1,0 +1,65 @@
+---
+title: Basic Messages
+description: Showing different types of messages
+slug: basic-messages
+tableOfContents: true
+---
+
+## Help Boxes
+
+In the base game, text commands require a GXT key - an 8-character string referencing one of the predefined text entries in the active GXT file (for example, `american.gxt` when the game language is set to English).
+
+For example, to display a help box with the text 'San Andreas', you need to use the command `PRINT_HELP` with the key `'SAN_AND'`:
+
+```sb
+PRINT_HELP {key} 'SAN_AND'
+```
+
+<img src="/img/ch-04-01.png" alt="Help box example" />
+
+:::tip
+How one could find what key refers to what text? There is an online tool
+that lets you navigate all standard game messages and their keys:
+https://public.sannybuilder.com/GXT/search/?game=SA%20PC. It supports all
+available languages and can work with user-provided GXT files.
+:::
+
+Sometimes you need custom text that doesn’t exist in the original GXT files. There are two easy ways to do this:
+
+1. CLEO supports custom text dictionary format called `FXT`, which allows you to define new keys and messages without having to edit GXT files. FXT files are loaded automatically from the `CLEO_TEXT` folder.
+
+Each FXT file contains a list of plain text entries in the following format:
+
+```
+<KEY> <TEXT>
+```
+
+2. Use CLEO commands that accept strings directly, without using a GXT key. For example, to display the same help box use:
+
+```sb
+PRINT_HELP_STRING {text} "San Andreas"
+```
+
+Notice that because the text is longer than 8 characters, you need to use double quotes.
+
+## Mission Text
+
+Here is some other message commands and their CLEO counterpart:
+
+**PRINT_NOW**
+
+| Native Command                                        | CLEO Command                                            |
+| ----------------------------------------------------- | ------------------------------------------------------- |
+| `PRINT_NOW {key} 'SAN_AND' {duration} 3000 {style} 1` | `PRINT_STRING_NOW {text} "San Andreas" {duration} 3000` |
+
+<img src="/img/ch-04-02.png" alt="PRINT_NOW Example" />
+
+**PRINT_BIG**
+
+| Native Command                                        | CLEO Command                                                      |
+| ----------------------------------------------------- | ----------------------------------------------------------------- |
+| `PRINT_BIG {key} 'SAN_AND' {duration} 3000 {style} 1` | `PRINT_BIG_STRING {text} "San Andreas" {duration} 3000 {style} 1` |
+
+<img src="/img/ch-04-03.png" alt="PRINT_BIG Example" />
+
+To find more information about each command and different styles, visit [the Text class](https://library.sannybuilder.com/#/sa/script/classes/Text) in Sanny Builder Library.

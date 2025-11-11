@@ -92,6 +92,17 @@ export default defineConfig({
 						{ label: 'Negating Conditions', slug: 'negating-conditions' },
 						{ label: 'Multiple Conditions', slug: 'multiple-conditions' },
 					],
+				},
+				{
+					label: "Chapter IV: Working with Text",
+					items: [
+						{label: 'Text Types', slug: 'text-types'},
+						{label: 'Basic Messages', slug: 'basic-messages'},
+						{label: 'Formatted Messages', slug: 'formatted-messages'},
+						{label: 'Text Draws', slug: 'text-draws'},
+						{label: 'Debug Messages', slug: 'debug-messages'},
+						
+					]
 				}
 			],
 		}),
