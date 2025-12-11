@@ -80,7 +80,7 @@ export default defineConfig({
 						{ label: 'Variables', slug: 'variables' },
 						{ label: 'WAIT command', slug: 'wait' },
 						{ label: 'WHILE Loop', slug: 'while' },
-						{ label: 'WHILE TRUE', slug: 'while-true' },
+						{ label: 'Infinite Loop with WHILE TRUE', slug: 'while-true' },
 						{ label: 'Hands-on: Spawning a Vehicle', slug: 'script-spawn-vehicle' },
 					],
 				},
