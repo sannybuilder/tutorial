@@ -1,0 +1,66 @@
+---
+title: REPEAT..UNTIL Loop
+description: A loop that always executes at least once
+slug: repeat-until
+---
+
+The `while` loop checks its condition _before_ each iteration. If the condition is false from the start, the body never runs at all. Sometimes that's not what you want -- you need the body to execute at least once, and only then decide whether to keep going.
+
+The `repeat..until` loop does exactly that. It runs the body first, then checks the condition. If the condition is true, the loop stops. If it's false, the loop repeats.
+
+## Syntax
+
+```sb
+repeat
+    <body>
+until <condition>
+```
+
+Compare this with `while`:
+
+| | Checks condition | Guaranteed to run at least once? |
+| --- | --- | --- |
+| `while` | Before each iteration | No |
+| `repeat..until` | After each iteration | Yes |
+
+## Example
+
+Here is a simple `repeat..until` loop that waits for the player to press `F5`:
+
+```sb
+repeat
+    wait 0
+until is_key_pressed 116
+```
+
+The `wait 0` always executes at least once, giving the game a chance to process input before the first check. Compare it with the equivalent `while` version:
+
+```sb
+while not is_key_pressed 116
+    wait 0
+end
+```
+
+Both achieve the same result, but notice how the condition is inverted: `while` needs `not is_key_pressed` (keep going while the key is _not_ pressed), whereas `repeat..until` uses `is_key_pressed` directly (stop when the key _is_ pressed).
+
+## Practical Example
+
+This script counts how many seconds the player waits before pressing `F5`:
+
+```sb
+int seconds = 0
+
+repeat
+    wait 1000
+    seconds += 1
+    print_formatted_now "Waiting... %d seconds" 1000 seconds
+until is_key_pressed 116
+
+print_formatted_now "You waited %d seconds!" 3000 seconds
+```
+
+Because `repeat..until` always runs the body first, the counter starts at `1` even if the player presses `F5` immediately.
+
+:::tip
+Use `repeat..until` when you need the loop body to execute at least once -- for example, displaying a prompt before checking the player's response. Use `while` when the body should be skipped entirely if the condition is already false.
+:::

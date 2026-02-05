@@ -19,7 +19,13 @@ Or:
 terminate_this_script // End of script
 ```
 
-Block comments start with `/*` and end with `*/`. They can span multiple lines:
+There are two ways to write block comments. The first is using curly braces `{` and `}`:
+
+```sb
+wait {comments here} 0
+```
+
+The second is using `/*` and `*/`, similar to C++. They can span multiple lines:
 
 ```sb
 /*
@@ -33,6 +39,10 @@ Or used in the middle of the code:
 ```sb
 set_time_of_day /* hours */ 12 /* minutes */ 30
 ```
+
+:::note
+`{}` comments may look similar to directives like `{$CLEO .cs}` which we will learn about next. The difference is that directives always start with `{$`. Everything else inside `{}` is treated as a comment.
+:::
 
 Block comments can not be nested. For example, the following code is invalid:
 

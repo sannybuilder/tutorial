@@ -1,0 +1,59 @@
+---
+title: Constants
+description: Using constants to name fixed values in CLEO scripts
+slug: constants
+---
+
+So far, we've been using raw numbers directly in the code. For example, in the [vehicle spawning script](/script-spawn-vehicle), the model number `415` appeared several times. If you wanted to change the vehicle, you'd have to find and update every occurrence. This is error-prone and makes the code harder to read.
+
+A _constant_ solves this problem. It is a named value that the compiler replaces with the actual value during compilation. Unlike a variable, a constant cannot be changed at runtime.
+
+To declare a constant, use the `const` keyword:
+
+```sb
+const MODEL = 415
+```
+
+Now, `MODEL` can be used anywhere in the code instead of `415`:
+
+```sb
+const MODEL = 415
+
+request_model MODEL
+
+while not has_model_loaded MODEL
+    wait 0
+end
+
+Car vehicle = create_car MODEL at 2488.6963 -1660.1608 13.3359
+mark_model_as_no_longer_needed MODEL
+```
+
+If you decide to switch from a Cheetah to a different car, you only need to update one line.
+
+You can declare multiple constants on a single line, separated by commas:
+
+```sb
+const KEY_F5 = 116, KEY_F6 = 117
+```
+
+Or use a `const..end` block for better readability:
+
+```sb
+const
+    KEY_F5 = 116
+    KEY_F6 = 117
+    BONUS = 100
+end
+```
+
+Constants can hold string values too:
+
+```sb
+const GREETING = "Hello!"
+const GXT_HELP = 'SAN_AND'
+```
+
+:::tip
+Use constants for values that appear more than once or have a non-obvious meaning. A name like `KEY_F5` is much clearer than the raw number `116`.
+:::

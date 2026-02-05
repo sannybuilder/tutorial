@@ -75,7 +75,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Chapter II: Loops',
+					label: 'Chapter II: Introducing Loops',
 					items: [
 						{ label: 'Variables', slug: 'variables' },
 						{ label: 'WAIT command', slug: 'wait' },
@@ -102,6 +102,16 @@ export default defineConfig({
 						{label: 'Text Draws', slug: 'text-draws'},
 						{label: 'Debug Messages', slug: 'debug-messages'},
 						
+					]
+				},
+				{
+				label: "Chapter V: Advanced Loops",
+				items: [
+						{ label: 'Constants', slug: 'constants' },
+						{ label: 'FOR Loop', slug: 'for-loop' },
+						{ label: 'REPEAT..UNTIL Loop', slug: 'repeat-until' },
+						{ label: 'Continue and Break', slug: 'continue-break' },
+						{ label: 'Hands-on: Bonus Counter', slug: 'script-bonus-counter' },
 					]
 				}
 			],

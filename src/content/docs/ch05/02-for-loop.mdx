@@ -1,0 +1,86 @@
+---
+title: FOR Loop
+description: Counting iterations with the FOR loop
+slug: for-loop
+---
+
+In [Chapter II](/while), we learned about the `while` loop which repeats as long as a condition is true. But what if you know exactly how many times you want to repeat something? The `for` loop is designed for exactly that.
+
+## Syntax
+
+```sb
+for <variable> = <start> to <end>
+    <body>
+end
+```
+
+The loop variable starts at `<start>` and increases by `1` after each iteration until it passes `<end>`.
+
+For example, to add money to the player 5 times:
+
+```sb
+int i
+for i = 1 to 5
+    add_score 0 100
+    wait 250
+end
+```
+
+The variable `i` will take values `1`, `2`, `3`, `4`, `5`, and the loop body will execute 5 times. After the loop, the player has $500 more.
+
+## Counting Backwards with DOWNTO
+
+To count in the opposite direction, use `downto` instead of `to`. The loop variable decreases by `1` after each iteration:
+
+```sb
+int i
+for i = 5 downto 1
+    print_formatted_now "Countdown: %d" 1000 i
+    wait 1000
+end
+
+print_string_now "Go!" 2000
+```
+
+This displays `5`, `4`, `3`, `2`, `1` and then `Go!`.
+
+## Custom Step
+
+By default, the loop variable changes by `1` on each iteration. You can change this with the `step` keyword:
+
+```sb
+int i
+for i = 0 to 100 step 10
+    print_formatted_now "Value: %d" 500 i
+    wait 500
+end
+```
+
+This displays `0`, `10`, `20`, `30`, ..., `100`.
+
+`step` works with `downto` as well:
+
+```sb
+int i
+for i = 100 downto 0 step 25
+    print_formatted_now "Value: %d" 500 i
+    wait 500
+end
+```
+
+## Using Constants with FOR
+
+Constants pair nicely with `for` loops to make the code easy to configure:
+
+```sb
+const MAX_ROUNDS = 10
+const REWARD = 50
+
+int round
+for round = 1 to MAX_ROUNDS
+    add_score 0 REWARD
+    wait 500
+end
+```
+
+Changing `MAX_ROUNDS` or `REWARD` at the top of the script instantly adjusts the loop behavior.

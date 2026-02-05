@@ -1,0 +1,71 @@
+---
+title: Continue and Break
+description: Controlling loop execution with Continue and Break
+slug: continue-break
+---
+
+We briefly saw `break` in [Chapter II](/while-true) where it was used to exit an infinite `while true` loop. Let's look at `break` and its counterpart `continue` in more detail.
+
+## Break
+
+The `break` command immediately stops the current loop and moves execution to the first command after the loop:
+
+```sb
+int i
+for i = 1 to 100
+    if i == 6
+    then
+        break
+    end
+    print_formatted_now "i = %d" 500 i
+    wait 500
+end
+
+// execution continues here after break
+print_string_now "Loop stopped" 2000
+```
+
+This displays values `1` through `5`. When `i` becomes `6`, the `break` command exits the loop and the script displays `"Loop stopped"`. It works the same way in `while` and `for` loops.
+
+## Continue
+
+The `continue` command skips the rest of the current iteration and moves on to the next one:
+
+```sb
+int i
+for i = 1 to 5
+    if i == 3
+    then
+        continue
+    end
+    print_formatted_now "i = %d" 500 i
+    wait 500
+end
+```
+
+This displays `1`, `2`, `4`, `5`. The value `3` is skipped because `continue` jumps to the next iteration before `print_formatted_now` is reached.
+
+## Practical Example
+
+Here is a more practical use of `break`. This script gives the player money every second, but stops early if the `F6` key is pressed:
+
+```sb
+const KEY_F6 = 117
+
+int i
+for i = 1 to 10
+    if is_key_pressed KEY_F6
+    then
+        break
+    end
+    add_score 0 100
+    print_formatted_now "+$100 (round %d of 10)" 1000 i
+    wait 1000
+end
+```
+
+Without `break`, the only way to achieve this would be a `while` loop with a more complex condition. `break` gives you a clean way to exit early when something unexpected happens.
+
+:::note
+`break` and `continue` work in all loop types: `while`, `while true`, `for`, and `repeat..until`.
+:::

@@ -1,0 +1,92 @@
+---
+title: "Hands-on: Bonus Counter"
+description: Write a CLEO script that gives the player money in a countdown loop
+slug: script-bonus-counter
+---
+
+Let's put this chapter's concepts together. We will write a script that waits for a key press, then gives the player a cash bonus over several rounds with a countdown.
+
+The final script will look like this:
+
+```sb
+{$CLEO .cs}
+nop
+
+const ROUNDS = 5
+const BONUS = 250
+const KEY_START = 116 // F5
+const KEY_STOP = 117  // F6
+
+// wait for F5 to start
+while not is_key_pressed KEY_START
+    wait 0
+end
+
+int i
+for i = ROUNDS downto 1
+    // exit early if F6 is pressed
+    if is_key_pressed KEY_STOP
+    then
+        break
+    end
+
+    add_score 0 BONUS
+    print_formatted_now "+$%d (%d rounds left)" 1000 BONUS i
+    wait 1000
+end
+
+print_string_now "All done!" 2000
+
+terminate_this_script
+```
+
+Let's walk through it.
+
+The first section declares constants for all configurable values. Changing `ROUNDS` or `BONUS` at the top adjusts the entire script behavior without touching the rest of the code:
+
+```sb
+const ROUNDS = 5
+const BONUS = 250
+const KEY_START = 116 // F5
+const KEY_STOP = 117  // F6
+```
+
+Next, the script waits for the player to press `F5`. This is the same pattern used in the [vehicle spawning script](/script-spawn-vehicle):
+
+```sb
+while not is_key_pressed KEY_START
+    wait 0
+end
+```
+
+The main body is a `for` loop counting down from `ROUNDS` to `1`. On each iteration, it adds money to the player's account and displays a formatted message showing the bonus amount and remaining rounds:
+
+```sb
+int i
+for i = ROUNDS downto 1
+    ...
+    add_score 0 BONUS
+    print_formatted_now "+$%d (%d rounds left)" 1000 BONUS i
+    wait 1000
+end
+```
+
+Inside the loop, a `break` condition checks if `F6` is pressed. If so, the loop exits early:
+
+```sb
+    if is_key_pressed KEY_STOP
+    then
+        break
+    end
+```
+
+Save the file as `bonus_counter.txt` and press `F7` to compile and copy. Start a new game (or load a save), press `F5`, and watch the bonuses roll in. Press `F6` at any time to stop early.
+
+**What's next?**
+
+Try these modifications and recompile:
+
+- Change `ROUNDS` to `10` and `BONUS` to `100`.
+- Replace `downto` with `to` so the counter goes up instead of down.
+- Add `step 2` to give a bonus every other round.
+- Instead of `break`, try using `continue` to skip a specific round (e.g. skip round 3).
