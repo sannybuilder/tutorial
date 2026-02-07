@@ -30,7 +30,7 @@ for i = ROUNDS downto 1
         break
     end
 
-    add_score 0 BONUS
+    add_score {player} 0 BONUS
     print_formatted_now "+$%d (%d rounds left)" 1000 BONUS i
     wait 1000
 end
@@ -65,7 +65,7 @@ The main body is a `for` loop counting down from `ROUNDS` to `1`. On each iterat
 int i
 for i = ROUNDS downto 1
     ...
-    add_score 0 BONUS
+    add_score {player} 0 BONUS
     print_formatted_now "+$%d (%d rounds left)" 1000 BONUS i
     wait 1000
 end

@@ -1,0 +1,97 @@
+---
+title: Function Scope
+description: How variables and constants behave inside functions
+slug: function-scope
+---
+
+When you declare a variable inside a function, it only exists within that function. This is called _scope_ — the region of code where a name is visible.
+
+## Variable Scope
+
+A function has its own set of local variables. They don't interfere with variables in the main script or in other functions:
+
+```sb
+int x = 10
+example()
+// x is still 10 here
+
+function example()
+    int x = 99 // this is a different x
+end
+```
+
+The `x` inside `example` and the `x` outside are completely separate. Changing one has no effect on the other. This means you can name variables inside functions freely, without worrying about accidentally overwriting something in the main script.
+
+Function parameters work the same way — they are local to the function:
+
+```sb
+int amount = 50
+addBonus(amount)
+// amount is still 50 here
+
+function addBonus(amount: int)
+    amount += 100 // modifying the local copy
+    add_score 0 amount
+end
+```
+
+The `amount` parameter inside `addBonus` is a copy. The original variable in the main script is untouched.
+
+## Constants in Functions
+
+You can declare constants inside a function to keep magic numbers out of the code:
+
+```sb
+function giveReward()
+    const BONUS = 100
+    add_score 0 BONUS
+end
+```
+
+However, unlike variables, a local constant **cannot** reuse a name that already exists in the outer scope. If a constant `BONUS` is already declared outside the function, trying to declare another `BONUS` inside will cause a compilation error:
+
+```sb
+const BONUS = 500
+
+function giveReward()
+    const BONUS = 100 // error — BONUS is already defined
+    add_score 0 BONUS
+end
+```
+
+Use a distinct name to avoid the conflict:
+
+```sb
+const BONUS = 500
+
+function giveReward()
+    const REWARD = 100 // ok — different name
+    add_score 0 REWARD
+end
+```
+
+## Why Scope Matters
+
+Without scope, every function would share the same pool of variables. A helper function could silently overwrite a variable the main script depends on, causing hard-to-find bugs. Scope prevents that — each function is an isolated workspace.
+
+Consider this example:
+
+```sb
+int i
+for i = 0 to 4
+    doSomething()
+end
+
+function doSomething()
+    int i // safe — this i is local to the function
+    for i = 0 to 9
+        wait 0
+    end
+end
+```
+
+If `doSomething` didn't have its own scope, its inner `for` loop would overwrite the outer loop's `i`, causing the outer loop to behave unpredictably. With scope, both loops run independently.
+
+:::tip
+Keep functions self-contained. Declare all the variables and constants a function needs inside its body. This makes the function easier to understand and safe to call from anywhere.
+:::

@@ -1,0 +1,70 @@
+---
+title: Arrays
+description: Storing multiple values under a single name
+slug: arrays
+---
+
+So far, every variable we've used stores a single value. That works fine when you need one vehicle or one counter, but what if you need to store ten coordinates, or five weapon IDs? Declaring `x1`, `x2`, `x3`... `x10` gets tedious fast.
+
+An _array_ solves this. It is a collection of elements of the same type, stored under a single name. Each element is accessed by its _index_ — a number starting from `0`.
+
+## Declaring an Array
+
+To declare an array, write the type followed by the name and the number of elements in square brackets:
+
+```sb
+int scores[5]
+```
+
+This creates an array called `scores` with 5 integer elements. You can do the same with other types:
+
+```sb
+float pos[3]
+string names[3]
+longstring descriptions[3]
+```
+
+## Reading and Writing Elements
+
+To access an element, use square brackets with the index:
+
+```sb
+longstring names[3]
+
+names[0] = "Infernus"
+names[1] = "Cheetah"
+names[2] = "Banshee"
+```
+
+Remember, indexing starts at `0`. An array of 3 elements has valid indices `0` through `2`.
+
+You can use a variable as the index:
+
+```sb
+longstring names[3]
+
+int i = 2
+names[i] = "Banshee"
+
+```
+
+After this, the third element (index `2`) holds the value `"Banshee"`.
+
+Array elements work just like regular variables. You can use them in conditions, arithmetic, and commands:
+
+```sb
+int scores[3]
+
+scores[0] = 50
+scores[1] = scores[0] + 10
+scores[0] += 100
+
+if scores[0] > scores[1]
+then
+    print_formatted_now "First is bigger: %d" 2000 scores[0]
+end
+```
+
+:::tip
+Use arrays whenever you have a group of related values of the same type. If you find yourself naming variables `x1`, `x2`, `x3`, that's a sign you need an array.
+:::

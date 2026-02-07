@@ -1,0 +1,191 @@
+---
+title: "Hands-on: Checkpoint Hunt"
+description: Write a CLEO script that creates random checkpoints for the player to collect
+slug: script-checkpoint-hunt
+---
+
+Let's put arrays to work in a playable mini-game. The script will place 3 checkpoints around the player. The player can collect them in any order. Once all three are collected, the script rewards the player with a cash bonus.
+
+<img src="/img/ch-06-04.png" alt="Checkpoint Hunt" />
+
+Here's the final script:
+
+```sb
+{$CLEO .cs}
+nop
+
+const REWARD = 5000
+const NUM = 3
+int last_index = NUM - 1
+
+// read the player's current position as a base point
+float base[3]
+...base = get_char_coordinates $scplayer
+
+// generate checkpoint positions around the player
+float cx[NUM]
+float cy[NUM]
+float cz[NUM]
+
+int i
+for i = 0 to last_index
+    float xoffset = generate_random_float_in_range {min} -25.0 {max} 25.0
+    float yoffset = generate_random_float_in_range {min} -25.0 {max} 25.0
+    cx[i] = base[0]
+    cx[i] += xoffset     
+    cy[i] = base[1]
+    cy[i] += yoffset     
+    cz[i] = base[2]
+end
+
+// track which checkpoints have been collected
+int collected[NUM]
+for i = 0 to last_index
+    collected[i] = false
+end
+
+int remaining = NUM
+print_formatted_now "Checkpoint Hunt! Find all %d markers." 3000 NUM
+
+// main loop
+while remaining > 0
+    wait 0
+
+    float pos[3]
+    ...pos = get_char_coordinates $scplayer
+
+    for i = 0 to last_index
+        // skip already collected checkpoints
+        if collected[i] == true
+        then
+            continue
+        end
+
+
+        if locate_char_on_foot_3d $scplayer cx[i] cy[i] cz[i] {xRadius} 3.0 {yRadius} 3.0 {zRadius} 3.0 {drawSphere} true
+        then
+            collected[i] = true
+            remaining -= 1
+            print_formatted_now "Got one! %d remaining." 2000 remaining
+        end
+    end
+end
+
+add_score {player} 0 REWARD
+print_formatted_now "All checkpoints collected! +$%d" 3000 REWARD
+
+terminate_this_script
+```
+
+Let's walk through it section by section.
+
+## Constants and Setup
+
+```sb
+const REWARD = 5000
+const NUM = 3
+int last_index = NUM - 1
+```
+
+Two constants control the script's behavior. `NUM` is the number of checkpoints and `REWARD` is the cash prize. Changing these values at the top instantly adjusts the game. The variable `last_index` stores the last valid index for the array to be used with FOR loops.
+
+## Generating Checkpoints
+
+First, we read the player's current position into a base point using the [spread operator](/spread):
+
+```sb
+float base[3]
+...base = get_char_coordinates $scplayer
+```
+
+Then three parallel arrays store the X, Y, and Z of each checkpoint. A `for` loop copies the player's base position into each one and adds a random offset:
+
+```sb
+float cx[NUM]
+float cy[NUM]
+float cz[NUM]
+
+int i
+for i = 0 to last_index
+    float xoffset = generate_random_float_in_range {min} -25.0 {max} 25.0
+    float yoffset = generate_random_float_in_range {min} -25.0 {max} 25.0
+    cx[i] = base[0]
+    cx[i] += xoffset
+    cy[i] = base[1]
+    cy[i] += yoffset
+    cz[i] = base[2]
+end
+```
+
+Each checkpoint gets a random X and Y offset between -25 and +25 units from the player. The Z coordinate stays the same so they're on the same ground level.
+
+## Tracking Collection
+
+An integer array marks which checkpoints have been collected. `0` means not yet, `1` means collected:
+
+```sb
+int collected[NUM]
+for i = 0 to last_index
+    collected[i] = false
+end
+
+int remaining = NUM
+```
+
+The variable `remaining` counts down as the player picks them up.
+
+## The Main Loop
+
+The `while` loop runs until all checkpoints are collected:
+
+```sb
+while remaining > 0
+    wait 0
+    ...
+end
+```
+
+Inside, the script gets the player's current position every frame and loops through each checkpoint:
+
+```sb
+for i = 0 to last_index
+    if collected[i] == true
+    then
+        continue
+    end
+    ...
+end
+```
+
+Already-collected checkpoints are skipped with `continue` — exactly as we learned in [Chapter V](/continue-break).
+
+For each uncollected checkpoint, the script uses `locate_char_on_foot_3d` to check if the player is within 3 units. The `drawSphere` parameter set to `true` makes the game draw a visible marker at the checkpoint position:
+
+```sb
+if locate_char_on_foot_3d $scplayer cx[i] cy[i] cz[i] {xRadius} 3.0 {yRadius} 3.0 {zRadius} 3.0 {drawSphere} true
+then
+    collected[i] = true
+    remaining -= 1
+    print_formatted_now "Got one! %d remaining." 2000 remaining
+end
+```
+
+## The Reward
+
+Once the loop exits (all collected), the player gets the prize:
+
+```sb
+add_score {player} 0 REWARD
+print_formatted_now "All checkpoints collected! +$%d" 3000 REWARD
+```
+
+Save the file as `checkpoint_hunt.txt`, press `F7` to compile, and head into the game. Walk around and find all three markers!
+
+**What's next?**
+
+Try these modifications and recompile:
+
+- Change the reward
+- Change `NUM` to `5` for a longer hunt.
+- Widen the random offset range from `25.0` to `100.0` to spread the checkpoints farther apart.
+- Replace `true` with `false` in `locate_char_on_foot_3d` to hide the markers and make it a blind hunt.

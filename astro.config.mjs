@@ -113,6 +113,26 @@ export default defineConfig({
 						{ label: 'Continue and Break', slug: 'continue-break' },
 						{ label: 'Hands-on: Bonus Counter', slug: 'script-bonus-counter' },
 					]
+				},
+				{
+					label: "Chapter VI: One Name, Many Values",
+					items: [
+						{ label: 'Arrays', slug: 'arrays' },
+						{ label: 'Arrays and Loops', slug: 'arrays-and-loops' },
+						{ label: 'Spread Operator', slug: 'spread' },
+						{ label: 'Hands-on: Checkpoint Hunt', slug: 'script-checkpoint-hunt' },
+					]
+				},
+				{
+					label: "Chapter VII: Divide and Conquer",
+					items: [
+						{ label: 'Functions', slug: 'functions' },
+						{ label: 'Function Scope', slug: 'function-scope' },
+						{ label: 'Returning Values', slug: 'return-values' },
+						{ label: 'Logical Functions', slug: 'logical-functions' },
+						{ label: 'Optional Return', slug: 'optional-return' },
+						{ label: 'Hands-on: Vehicle Roulette', slug: 'script-vehicle-roulette' },
+					]
 				}
 			],
 		}),

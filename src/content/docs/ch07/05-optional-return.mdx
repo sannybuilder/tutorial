@@ -1,0 +1,84 @@
+---
+title: Optional Return
+description: Handling functions that might fail to produce a result
+slug: optional-return
+---
+
+In the [previous page](/logical-functions), we saw functions that answer yes or no. But some functions are meant to _produce a value_ — and sometimes they can't. For example, a function that reads a vehicle's health should not return anything if the vehicle has been destroyed. You need a way to signal "I have nothing to give back."
+
+The `optional` keyword marks a return type as potentially empty.
+
+## Declaring an Optional Return
+
+Add `optional` before the return type:
+
+```sb
+function getCarHealth(vehicle: Car): optional int
+    if 
+        is_car_dead vehicle
+    then
+        return // car is destroyed — nothing to report
+    end
+
+    int hp = get_car_health vehicle
+    return hp
+end
+```
+
+When the car is dead, the function uses a bare `return` with no value. When the car is alive, it returns the health normally.
+
+## Checking the Result
+
+The caller wraps the function call in an `if` to check whether it succeeded:
+
+```sb
+if
+    int hp = getCarHealth(vehicle)
+then
+    print_formatted_now "Car health: %d" 2000 hp
+else
+    print_string_now "Car is destroyed!" 2000
+end
+```
+
+If the function returns a value, the `then` branch runs and `hp` holds the health. If the function returns nothing, the `else` branch runs.
+
+## Multiple Optional Values
+
+A function can return multiple optional values. All of them are either returned together, or none at all:
+
+
+```sb
+function getCarPosition(vehicle: Car): optional float, float, float
+    if 
+        is_car_dead vehicle
+    then
+        return // invalid car, nothing to return
+    end
+
+    float pos[3]
+    ...pos = get_car_coordinates vehicle
+    return ...pos
+end
+```
+
+The caller provides variables for each return type:
+
+```sb
+float pos[3]
+if 
+    ...pos = getCarPosition(vehicle)
+then
+    print_formatted_now "Car is at %.1f, %.1f, %.1f" 2000 ...pos
+else
+    print_string_now "Car no longer exists." 2000
+end
+```
+
+## When to Use Optional
+
+Use `optional` when a function might genuinely fail to produce a result due to external conditions — a vehicle that's been destroyed, a player that isn't in the game yet, or a resource that's unavailable. It's different from `logical`, which answers a yes/no question without producing a value.
+
+:::tip
+Think of `optional` as a safety net. Instead of returning a dummy value (like `0` or `-1`) and hoping the caller remembers to check it, `optional` makes the success-or-failure check part of the language itself.
+:::

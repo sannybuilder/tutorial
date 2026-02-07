@@ -21,7 +21,7 @@ For example, to add money to the player 5 times:
 ```sb
 int i
 for i = 1 to 5
-    add_score 0 100
+    add_score {player} 0 100
     wait 250
 end
 ```
@@ -78,7 +78,7 @@ const REWARD = 50
 
 int round
 for round = 1 to MAX_ROUNDS
-    add_score 0 REWARD
+    add_score {player} 0 REWARD
     wait 500
 end
 ```

@@ -1,0 +1,64 @@
+---
+title: Logical Functions
+description: Using functions as conditions in IF statements
+slug: logical-functions
+---
+
+In [Chapter III](/conditions), we learned that conditions are special commands that set a true/false result for the current `if` statement. What if your own function could do the same? That's exactly what the `logical` return type enables.
+
+## Functions as Conditions
+
+Declare a function with the `logical` return type to use it as a condition:
+
+```sb
+function isPlayerRich(): logical
+    int money = store_score {player} 0
+    return money > 1000000
+end
+```
+
+The `return` statement takes a condition expression. The result — true or false — is passed back to the caller. Now you can use this function directly in an `if` statement:
+
+```sb
+if isPlayerRich()
+then
+    print_string_now "Living the dream!" 2000
+else
+    print_string_now "Keep grinding." 2000
+end
+```
+
+## Returning True or False
+
+Instead of a condition expression, you can return `true` or `false` explicitly:
+
+```sb
+function isValidLevel(level: int): logical
+    if or
+        level < 0
+        level > 6
+    then
+        return false
+    end
+    return true
+end
+```
+
+This is useful when the logic has multiple branches or when you want the intent to be extra clear.
+
+## Combining with Other Conditions
+
+A logical function can be mixed with other conditions in `if and` or `if or`, just like any built-in condition:
+
+```sb
+if and
+    isValidLevel(wantedLevel)
+    is_player_playing 0
+then
+    set_max_wanted_level wantedLevel
+end
+```
+
+:::tip
+A `logical` function answers a yes/no question. It doesn't produce a value — it sets the condition result for the current `if` statement.
+:::

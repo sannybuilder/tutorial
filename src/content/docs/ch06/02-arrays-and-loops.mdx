@@ -1,0 +1,71 @@
+---
+title: Arrays and Loops
+description: Using FOR loops to work with arrays efficiently
+slug: arrays-and-loops
+---
+
+Arrays become truly powerful when combined with loops. Instead of writing the same operation for each element by hand, a `for` loop can process the entire array in just a few lines.
+
+## Initializing an Array
+
+If you needed to set all elements to the same value — say, zero — use a `for` loop:
+
+```sb
+int scores[10]
+int i
+
+for i = 0 to 9
+    scores[i] = 0
+end
+```
+
+The loop variable `i` goes from `0` to `9`, covering every valid index in a 10-element array.
+
+## Iterating Over an Array
+
+Reading from an array follows the same pattern. This snippet prints all five weapon IDs on screen, one per second:
+
+```sb
+int weapons[5]
+
+weapons[0] = 346
+weapons[1] = 347
+weapons[2] = 352
+weapons[3] = 355
+weapons[4] = 356
+
+int i
+for i = 0 to 4
+    print_formatted_now "Weapons[%d] = %d" 1000 i weapons[i]
+    wait 1000
+end
+```
+
+## Searching an Array
+
+A common task is to find a specific value in an array. Loop through the elements and check each one:
+
+```sb
+int weapons[5]
+
+weapons[0] = 346
+weapons[1] = 347
+weapons[2] = 352
+weapons[3] = 355
+weapons[4] = 356
+
+int i
+for i = 0 to 4
+    if weapons[i] == 352 // UZI
+    then
+        print_formatted_now "UZI found at index %d" 2000 i
+        break
+    end
+end
+```
+
+The `break` exits the loop as soon as the UZI is found — no need to keep checking the rest.
+
+:::tip
+When working with arrays, always make sure the index stays within bounds. Accessing an element outside the valid range (e.g. index `5` in a 5-element array) leads to unpredictable behavior.
+:::

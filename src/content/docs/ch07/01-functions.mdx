@@ -1,0 +1,93 @@
+---
+title: Functions
+description: Creating reusable blocks of code with functions
+slug: functions
+---
+
+In the [checkpoint hunt](/script-checkpoint-hunt) script from the previous chapter, the code that reads the player's position appeared twice — once for the base point and once inside the loop. If we wanted to add a third use, we'd have to copy the same lines again. And if the pattern were more complex — say, loading a model and waiting for it — duplication would quickly get out of hand.
+
+A _function_ wraps a piece of code into a reusable block with its own name. You write the code once, then _call_ the function wherever you need it.
+
+## Syntax
+
+```sb
+function <name>(<parameters>)
+    <body>
+end
+```
+
+Here's a simple function that loads a model and waits until it's ready:
+
+```sb
+function loadModel(modelId: int)
+    request_model modelId
+    while not has_model_loaded modelId
+        wait 0
+    end
+end
+```
+
+`loadModel` is the function's name. `modelId` is a _parameter_ — a value the caller provides. Inside the body, `modelId` works just like a local variable.
+
+To call the function, use its name followed by parentheses with the argument:
+
+```sb
+loadModel(415) // load Cheetah
+loadModel(522) // load NRG-500
+```
+
+Each call runs the full request-and-wait pattern. The request-wait loop that took 4 lines now takes 1 line at each call site.
+
+:::tip
+If you find yourself copying the same block of code in multiple places, that's a strong signal to extract it into a function.
+:::
+
+## Parameters
+
+A function can accept zero or more parameters. Each parameter has a name and a type, separated by a colon:
+
+```sb
+function setTime(hour: int, minute: int)
+    set_time_of_day hour minute
+end
+
+setTime(12, 30)
+```
+
+If a function takes no parameters, use empty parentheses:
+
+```sb
+function resetWeather()
+    release_weather
+end
+
+resetWeather()
+```
+
+:::note
+The parentheses `()` are required when calling a function, even if it has no parameters.
+:::
+
+## Placing Functions in a Script
+
+Place functions where normal code flow can't reach them. A common pattern is to put all functions at the end of the script, e.g. after `terminate_this_script` or other functions:
+
+```sb
+
+{$CLEO .cs}
+// main code here
+terminate_this_script
+
+// functions here
+function foo()
+    ...
+end
+function bar()
+    ...
+end
+```
+
+
+:::tip
+Visit https://github.com/x87/100-SCM-Functions for a large collection of ready-made functions you can use in your scripts.
+:::

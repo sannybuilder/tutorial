@@ -10,11 +10,7 @@ We will break down the script into smaller parts and explain each part in detail
 {$CLEO .cs}
 nop
 
-while not is_key_pressed 116 // wait for F5 press
-    wait 0
-end
-
-while is_key_pressed 116 // wait for F5 release
+while not is_key_just_pressed 116 // wait for F5 press
     wait 0
 end
 

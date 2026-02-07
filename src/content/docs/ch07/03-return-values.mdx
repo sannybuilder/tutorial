@@ -1,0 +1,85 @@
+---
+title: Returning Values
+description: Getting results back from functions
+slug: return-values
+---
+
+The functions we've written so far perform actions but don't give anything back to the caller. In practice, you'll often want a function to compute something and _return_ the result.
+
+## Declaring a Return Type
+
+To indicate that a function returns a value, add a colon and a type after the parameter list:
+
+```sb
+function double(x: int): int
+    int result = x + x
+    return result
+end
+```
+
+The `: int` after the parentheses tells the compiler this function gives back an integer. The `return` keyword sends the value to the caller.
+
+To use the returned value, assign the function call to a variable:
+
+```sb
+int answer = double(21)
+// answer is 42
+```
+
+## Early Return
+
+`return` can appear anywhere in the function body. When reached, the function exits immediately — any code after it won't run:
+
+```sb
+function clampWantedLevel(level: int): int
+    if level < 0
+    then
+        return 0
+    end
+    if level > 6
+    then
+        return 6
+    end
+    return level
+end
+```
+
+This function ensures the wanted level stays between `0` and `6`. If the input is out of range, an early `return` provides the clamped value without reaching the rest of the code.
+
+## Returning Multiple Values
+
+A function can return more than one value. List the types separated by commas:
+
+```sb
+function getScreenCenter(): int, int
+    int x = 320
+    int y = 224
+    return x y
+end
+```
+
+The caller provides variables for each returned value:
+
+```sb
+int cx, cy
+cx, cy = getScreenCenter()
+```
+
+## Returning Without a Value
+
+A function that doesn't declare a return type can still use `return` to exit early — it just doesn't provide a value:
+
+```sb
+function giveReward(amount: int)
+    if amount <= 0
+    then
+        return // nothing to do
+    end
+    add_score {player} 0 amount
+    print_formatted_now "+$%d" 2000 amount
+end
+```
+
+:::tip
+Keep functions focused on a single task. If a function is doing too many things, consider splitting it into two — one that computes a result and one that acts on it.
+:::

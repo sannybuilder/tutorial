@@ -1,0 +1,86 @@
+---
+title: Spread Operator
+description: Passing array elements to commands with the spread operator
+slug: spread
+---
+
+Many game commands expect multiple separate values. For example, creating a vehicle needs three coordinate values — X, Y, and Z:
+
+```sb
+Car vehicle = create_car 415 {at} 2488.56 -1660.16 13.34
+```
+
+If those coordinates are stored in an array, you'd normally have to write each element out:
+
+```sb
+float pos[3]
+
+pos[0] = 2488.56
+pos[1] = -1660.16
+pos[2] = 13.34
+
+Car vehicle = create_car 415 {at} pos[0] pos[1] pos[2]
+```
+
+This works, but it's verbose. The _spread operator_ (`...`) offers a shorthand. Prefixing an array name with `...` expands all its elements in place:
+
+```sb
+float pos[3]
+
+pos[0] = 2488.56
+pos[1] = -1660.16
+pos[2] = 13.34
+
+Car vehicle = create_car 415 {at} ...pos
+```
+
+The compiler replaces `...pos` with `pos[0] pos[1] pos[2]` during compilation. The result is identical to writing the elements out manually.
+
+## Reading Into an Array
+
+The spread operator works on the receiving side too. When a command outputs multiple values, you can capture them directly into an array:
+
+```sb
+float pos[3]
+
+...pos = get_char_coordinates $scplayer
+```
+
+This is equivalent to:
+
+```sb
+pos[0], pos[1], pos[2] = get_char_coordinates $scplayer 
+```
+
+All three coordinates are stored in the array in one line.
+
+:::tip
+You can combine the spread operation with other variables, and even other spread arrays. For example:
+
+```sb
+int leftStick[2]
+int rightStick[2]
+
+...leftStick, ...rightStick = get_position_of_analogue_sticks 0
+```
+:::
+
+## Practical Example
+
+Combining both directions, here's a pattern you'll see often — read the player's position, then use it to create something nearby:
+
+```sb
+float pos[3]
+
+...pos = get_char_coordinates $scplayer
+pos[0] += 5.0 // add offset to X
+
+Car vehicle = create_car 415 {at} ...pos
+```
+
+This reads the player's X, Y, Z into the array, shifts the X coordinate, and spawns a vehicle at the adjusted position.
+
+:::note
+The spread operator expands _all_ elements of the array. You can't spread just a subset — it's always the entire array.
+:::
+

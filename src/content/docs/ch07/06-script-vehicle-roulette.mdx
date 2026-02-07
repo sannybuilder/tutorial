@@ -1,0 +1,179 @@
+---
+title: "Hands-on: Vehicle Roulette"
+description: Write a CLEO script that spawns a random vehicle from a pool using functions and arrays
+slug: script-vehicle-roulette
+---
+
+Time to combine functions and arrays into something fun. We'll build a vehicle roulette — press a key, and the script picks a random vehicle from a pool and spawns it right next to you. Press again to swap it for another. Will you get a sports car or a tractor? Only one way to find out.
+
+<img src="/img/ch-07-06.png" alt="Vehicle Roulette" />
+
+Here's the final script:
+
+```sb
+{$CLEO .cs}
+
+const KEY_SPIN = 116 // F5
+const NUM_VEHICLES = 8
+
+// vehicle model pool
+int models[NUM_VEHICLES]
+models[0] = 415 // cheetah
+models[1] = 451 // turismo
+models[2] = 522 // nrg-500
+models[3] = 432 // rhino
+models[4] = 509 // bike
+models[5] = 510 // mountain bike
+models[6] = 539 // vortex
+models[7] = 531 // tractor
+
+Car currentCar
+int currentModel = -1
+
+while true
+    wait 0
+
+    if not is_key_just_pressed KEY_SPIN
+    then
+        continue
+    end
+
+    // remove previous vehicle if it exists
+    if currentModel <> -1
+    then
+        cleanup(currentCar, currentModel)
+    end
+
+    // pick a random vehicle
+    int index = generate_random_int_in_range {min} 0 {max} NUM_VEHICLES
+    currentModel = models[index]
+
+    // load, spawn, show
+    loadModel(currentModel)
+    currentCar = spawnNearPlayer(currentModel)
+
+    print_formatted_now "You got model %d! Press F5 for another spin." 3000 currentModel
+end
+
+
+function loadModel(modelId: int)
+    request_model modelId
+    while not has_model_loaded modelId
+        wait 0
+    end
+end
+
+function spawnNearPlayer(modelId: int): int
+    float pos[3]
+    Char playerChar = get_player_char {player} 0
+    ...pos = get_offset_from_char_in_world_coords playerChar {xOffset} 0 {yOffset} 5.0 {zOffset} 0
+
+    Car vehicle = create_car modelId {at} ...pos
+    return vehicle
+end
+
+function cleanup(vehicle: Car, modelId: int)
+    delete_car vehicle
+    mark_model_as_no_longer_needed modelId
+end
+```
+
+Let's break it down.
+
+## The Vehicle Pool
+
+An array stores the model IDs of all candidate vehicles. Adding or removing vehicles is as simple as editing this list and updating `NUM_VEHICLES`:
+
+```sb
+const NUM_VEHICLES = 8
+
+int models[NUM_VEHICLES]
+models[0] = 415 // cheetah
+models[1] = 451 // turismo
+models[2] = 522 // nrg-500
+models[3] = 432 // rhino
+models[4] = 509 // bike
+models[5] = 510 // mountain bike
+models[6] = 539 // vortex
+models[7] = 531 // tractor
+```
+
+The mix of sports cars, bikes, a tank, and a tractor makes each spin genuinely unpredictable.
+
+## Three Functions
+
+The script defines three focused functions, each handling one responsibility:
+
+**`loadModel`** — The familiar request-and-wait pattern from the [functions lesson](/functions), packaged for reuse:
+
+```sb
+function loadModel(modelId: int)
+    request_model modelId
+    while not has_model_loaded modelId
+        wait 0
+    end
+end
+```
+
+**`spawnNearPlayer`** — Creates the car in front of the player, and [returns](/return-values) the handle:
+
+```sb
+function spawnNearPlayer(modelId: int): int
+    float pos[3]
+    Char playerChar = get_player_char {player} 0
+    ...pos = get_offset_from_char_in_world_coords playerChar {xOffset} 0 {yOffset} 5.0 {zOffset} 0
+
+    Car vehicle = create_car modelId {at} ...pos
+    return vehicle
+end
+```
+
+**`cleanup`** — Deletes the old vehicle and releases its model to free memory:
+
+```sb
+function cleanup(vehicle: Car, modelId: int)
+    delete_car vehicle
+    mark_model_as_no_longer_needed modelId
+end
+```
+
+Each function is small, readable, and does one thing.
+
+## The Main Loop
+
+The script uses `while true` with a key-press check — the same pattern from [Chapter II](/while-true). The `is_key_just_pressed` condition fires only once per press, preventing a held key from triggering multiple spins:
+
+```sb
+while true
+    wait 0
+
+    if not is_key_just_pressed KEY_SPIN
+    then
+        continue
+    end
+    ...
+end
+```
+
+When the player presses `F5`, the script cleans up the previous car (if any), picks a random index from the models array, and calls the functions in sequence:
+
+```sb
+int index = generate_random_int_in_range {min} 0 {max} NUM_VEHICLES
+currentModel = models[index]
+
+loadModel(currentModel)
+currentCar = spawnNearPlayer(currentModel)
+```
+
+`generate_random_int_in_range` picks an index between `0` (inclusive) and `NUM_VEHICLES` (exclusive). That index pulls a model ID from the array, which flows through `loadModel` and `spawnNearPlayer`.
+
+Save the file as `vehicle_roulette.txt`, press `F7`, and try your luck!
+
+**What's next?**
+
+Try these modifications and recompile:
+
+- Add more vehicles to the pool (find model IDs in the vehicles.ide).
+- use [get_name_of_vehicle_model](https://library.sannybuilder.com/#/sa/script/extensions/CLEO/0ADB) and show the vehicle name instead of the model number
+- Add a spin counter and print "Spin #N" with each roll.
+- Make it cost $500 per spin — check the player's money before proceeding, and show a "Not enough cash!" message if they can't afford it.
