@@ -55,6 +55,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Chapter 0: Prerequisites',
+					collapsed: false,
 					items: [
 						{ label: 'Setting up the environment', slug: 'setup' },
 						{ label: 'CLEO Library', slug: 'cleo-library' },
@@ -64,6 +65,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Chapter I: Hello, World!',
+					collapsed: false,
 					items: [
 						{ label: 'Instructions', slug: 'instructions' },
 						{ label: 'Parameters', slug: 'parameters' },
@@ -76,6 +78,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Chapter II: Introducing Loops',
+					collapsed: true,
 					items: [
 						{ label: 'Variables', slug: 'variables' },
 						{ label: 'WAIT command', slug: 'wait' },
@@ -86,6 +89,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Chapter III: To Be Or Not To Be',
+					collapsed: true,
 					items: [
 						{ label: 'Conditions', slug: 'conditions' },
 						{ label: 'IF..ELSE', slug: 'else' },
@@ -95,6 +99,7 @@ export default defineConfig({
 				},
 				{
 					label: "Chapter IV: Working with Text",
+					collapsed: true,
 					items: [
 						{label: 'Text Types', slug: 'text-types'},
 						{label: 'Basic Messages', slug: 'basic-messages'},
@@ -106,6 +111,7 @@ export default defineConfig({
 				},
 				{
 				label: "Chapter V: Advanced Loops",
+				collapsed: true,
 				items: [
 						{ label: 'Constants', slug: 'constants' },
 						{ label: 'FOR Loop', slug: 'for-loop' },
@@ -116,6 +122,7 @@ export default defineConfig({
 				},
 				{
 					label: "Chapter VI: One Name, Many Values",
+					collapsed: true,
 					items: [
 						{ label: 'Arrays', slug: 'arrays' },
 						{ label: 'Arrays and Loops', slug: 'arrays-and-loops' },
@@ -125,6 +132,7 @@ export default defineConfig({
 				},
 				{
 					label: "Chapter VII: Divide and Conquer",
+					collapsed: true,
 					items: [
 						{ label: 'Functions', slug: 'functions' },
 						{ label: 'Function Scope', slug: 'function-scope' },
