@@ -4,7 +4,7 @@ description: Understanding WHILE loops in CLEO scripts
 slug: while
 ---
 
-Many things in the game are extended in time or depend on the player feedback. A car driving to a destination, a model file loading from the disk, a button awaiting to be pressed all require a specific condition to become true. Did the car reach the point, was the specific button pressed, is the model available for use? If not, wait and check again later. 
+Many things in the game are extended in time or depend on the player feedback. A car driving to a destination, a model file loading from the disk, a button awaiting to be pressed all require a specific condition to become true. Did the car reach the point, was the specific button pressed, is the model available for use? If not, wait and check again later.
 
 We can validate certain condition continuously, each frame, or with some delay. To achieve this in the code, a special construct exists: a loop.
 
@@ -26,7 +26,7 @@ end
 terminate_this_script
 ```
 
-The `wait 0` command is used to yield the execution for a frame, allowing the game to process other events and not freeze. It is crucial to have a `wait` command inside the loop body. 
+The `wait 0` command is used to yield the execution for a frame, allowing the game to process other events and not freeze. It is crucial to have a `wait` command inside the loop body.
 
 Once the condition becomes false, the loop stops and the execution moves to `terminate_this_script` command.
 
@@ -39,3 +39,19 @@ end
 ```
 
 The script will be continuously checking if the model 42 is available, processing other game events between iterations.
+
+:::note
+The script can't start with a loop. You need to have at least one instruction, for example `nop`, before any loop.
+
+```sb
+{$CLEO}
+nop
+
+while <condition>
+  <block of code>
+end
+
+terminate_this_script
+```
+
+:::
