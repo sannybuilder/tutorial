@@ -131,7 +131,7 @@ export default defineConfig({
 					]
 				},
 				{
-					label: "Chapter VII: Divide and Conquer",
+					label: "Chapter VII: Code Reuse with Functions",
 					collapsed: true,
 					items: [
 						{ label: 'Functions', slug: 'functions' },
