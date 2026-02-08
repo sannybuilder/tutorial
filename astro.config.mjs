@@ -106,6 +106,7 @@ export default defineConfig({
 						{label: 'Formatted Messages', slug: 'formatted-messages'},
 						{label: 'Text Draws', slug: 'text-draws'},
 						{label: 'Debug Messages', slug: 'debug-messages'},
+						{label: 'String Variables', slug: 'string-variables'},
 						
 					]
 				},
