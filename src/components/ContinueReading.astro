@@ -20,8 +20,8 @@
 	</div>
 
 	<div class="continue-section" id="continue-section" style="display: none;">
+		<span class="continue-label">Continue with</span>
 		<a class="continue-link" id="continue-link" href="/">
-			<span>Continue with </span>
 			<span class="continue-title" id="continue-title"></span>
 			<span class="continue-arrow" aria-hidden="true">&rarr;</span>
 		</a>
@@ -94,7 +94,7 @@
 			const firstIncomplete = lessons.find(({ slug }) => !progress[slug]);
 			if (firstIncomplete) {
 				const href = firstIncomplete.link.getAttribute('href') || '';
-				const label = firstIncomplete.link.textContent?.trim() || '';
+				const label = firstIncomplete.link.querySelector('span')?.textContent?.trim() || '';
 
 				const continueSection = document.getElementById('continue-section');
 				const continueLink = document.getElementById('continue-link') as HTMLAnchorElement | null;
@@ -162,21 +162,25 @@
 		border-top: 1px solid var(--sl-color-hairline);
 	}
 
+	.continue-label {
+		display: block;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		margin-bottom: 0.25rem;
+	}
+
 	.continue-link {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.25rem;
 		font-size: var(--sl-text-sm);
+		font-weight: 600;
 		color: var(--sl-color-text-accent);
 		text-decoration: none;
 	}
 
 	.continue-link:hover {
 		text-decoration: underline;
-	}
-
-	.continue-title {
-		font-weight: 600;
 	}
 
 	.continue-arrow {
