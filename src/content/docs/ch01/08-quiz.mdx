@@ -1,0 +1,42 @@
+---
+title: "Quiz: Hello, World!"
+description: Test your knowledge of the Hello World chapter
+slug: quiz-ch01
+---
+
+import Quiz from '../../../components/Quiz.astro';
+
+<Quiz questions={[
+	{
+		question: "What happens if a script does not end with terminate_this_script?",
+		answers: [
+			"The script restarts from the beginning",
+			"Nothing, it just stops",
+			"The game may crash trying to read the next instruction"
+		],
+		correct: 2,
+		hint: "The game executes the script instructions one by one in sequence until there is a command that tells it to stop."
+	},
+	{
+		question: "What is the difference between 1 and 1.0 in Sanny Builder?",
+		answers: [
+			"There is no difference",
+			"1 is an integer and 1.0 is a floating-point number",
+			"1 is a string and 1.0 is a number",
+			"1.0 is more precise but they work the same way"
+		],
+		correct: 1,
+		hint: "The compiler and the game treat whole numbers and decimal numbers as different types."
+	},
+	{
+		question: "Which of these is a valid block comment in Sanny Builder?",
+		answers: [
+			"# this is a comment #",
+			"-- this is a comment",
+			"/* this is a comment */",
+			"<!-- this is a comment -->"
+		],
+		correct: 2,
+		hint: "Sanny Builder supports two styles of block comments. One of them is the same as in C."
+	}
+]} />

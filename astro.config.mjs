@@ -27,6 +27,10 @@ export default defineConfig({
 				github: 'https://github.com/sannybuilder/tutorial',
                 discord: 'https://sannybuilder.com/discord',
 			},
+			components: {
+				PageTitle: './src/components/PageTitle.astro',
+				Footer: './src/components/Footer.astro',
+			},
 			tableOfContents: false,
 			expressiveCode: {
 				themes: ['dracula', 'solarized-light'],
@@ -60,8 +64,9 @@ export default defineConfig({
 						{ label: 'Setting up the environment', slug: 'setup' },
 						{ label: 'CLEO Library', slug: 'cleo-library' },
 						{ label: 'Compiling scripts with Sanny Builder', slug: 'sanny-builder' },
-						{ label: 'Stripped main.scm', slug: 'stripped-scm' },
-					],
+					{ label: 'Stripped main.scm', slug: 'stripped-scm' },
+						{ label: 'Quiz', slug: 'quiz-ch00' },
+				],
 				},
 				{
 					label: 'Chapter I: Hello, World!',
@@ -73,8 +78,9 @@ export default defineConfig({
 						{ label: 'Strings', slug: 'strings' },
 						{ label: 'Comments', slug: 'comments' },
 						{ label: '$CLEO Directive', slug: 'cleo-directive' },
-						{ label: 'Hands-on: Showing a Message', slug: 'script-show-message' },
-					],
+					{ label: 'Hands-on: Showing a Message', slug: 'script-show-message' },
+						{ label: 'Quiz', slug: 'quiz-ch01' },
+				],
 				},
 				{
 					label: 'Chapter II: Introducing Loops',
@@ -84,8 +90,9 @@ export default defineConfig({
 						{ label: 'WAIT command', slug: 'wait' },
 						{ label: 'WHILE Loop', slug: 'while' },
 						{ label: 'Infinite Loop with WHILE TRUE', slug: 'while-true' },
-						{ label: 'Hands-on: Spawning a Vehicle', slug: 'script-spawn-vehicle' },
-					],
+					{ label: 'Hands-on: Spawning a Vehicle', slug: 'script-spawn-vehicle' },
+						{ label: 'Quiz', slug: 'quiz-ch02' },
+				],
 				},
 				{
 					label: 'Chapter III: To Be Or Not To Be',
@@ -94,8 +101,9 @@ export default defineConfig({
 						{ label: 'Conditions', slug: 'conditions' },
 						{ label: 'IF..ELSE', slug: 'else' },
 						{ label: 'Negating Conditions', slug: 'negating-conditions' },
-						{ label: 'Multiple Conditions', slug: 'multiple-conditions' },
-					],
+					{ label: 'Multiple Conditions', slug: 'multiple-conditions' },
+						{ label: 'Quiz', slug: 'quiz-ch03' },
+				],
 				},
 				{
 					label: "Chapter IV: Working with Text",
@@ -106,9 +114,9 @@ export default defineConfig({
 						{label: 'Formatted Messages', slug: 'formatted-messages'},
 						{label: 'Text Draws', slug: 'text-draws'},
 						{label: 'Debug Messages', slug: 'debug-messages'},
-						{label: 'String Variables', slug: 'string-variables'},
-						
-					]
+					{label: 'String Variables', slug: 'string-variables'},
+						{ label: 'Quiz', slug: 'quiz-ch04' },
+				]
 				},
 				{
 				label: "Chapter V: Advanced Loops",
@@ -118,8 +126,9 @@ export default defineConfig({
 						{ label: 'FOR Loop', slug: 'for-loop' },
 						{ label: 'REPEAT..UNTIL Loop', slug: 'repeat-until' },
 						{ label: 'Continue and Break', slug: 'continue-break' },
-						{ label: 'Hands-on: Bonus Counter', slug: 'script-bonus-counter' },
-					]
+					{ label: 'Hands-on: Bonus Counter', slug: 'script-bonus-counter' },
+						{ label: 'Quiz', slug: 'quiz-ch05' },
+				]
 				},
 				{
 					label: "Chapter VI: One Name, Many Values",
@@ -128,8 +137,9 @@ export default defineConfig({
 						{ label: 'Arrays', slug: 'arrays' },
 						{ label: 'Arrays and Loops', slug: 'arrays-and-loops' },
 						{ label: 'Spread Operator', slug: 'spread' },
-						{ label: 'Hands-on: Checkpoint Hunt', slug: 'script-checkpoint-hunt' },
-					]
+					{ label: 'Hands-on: Checkpoint Hunt', slug: 'script-checkpoint-hunt' },
+						{ label: 'Quiz', slug: 'quiz-ch06' },
+				]
 				},
 				{
 					label: "Chapter VII: Code Reuse with Functions",
@@ -140,8 +150,9 @@ export default defineConfig({
 						{ label: 'Returning Values', slug: 'return-values' },
 						{ label: 'Logical Functions', slug: 'logical-functions' },
 						{ label: 'Optional Return', slug: 'optional-return' },
-						{ label: 'Hands-on: Vehicle Roulette', slug: 'script-vehicle-roulette' },
-					]
+					{ label: 'Hands-on: Vehicle Roulette', slug: 'script-vehicle-roulette' },
+						{ label: 'Quiz', slug: 'quiz-ch07' },
+				]
 				}
 			],
 		}),

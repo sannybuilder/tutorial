@@ -1,0 +1,42 @@
+---
+title: "Quiz: Advanced Loops"
+description: Test your knowledge of the advanced loops chapter
+slug: quiz-ch05
+---
+
+import Quiz from '../../../components/Quiz.astro';
+
+<Quiz questions={[
+	{
+		question: "When is the value of a constant determined?",
+		answers: [
+			"When the game starts",
+			"At compile time — the name is replaced with its value before the game runs",
+			"At runtime — it's looked up each time it's used",
+			"When the script is loaded by CLEO"
+		],
+		correct: 1,
+		hint: "Constants are a feature of the compiler, not the game engine."
+	},
+	{
+		question: "Which loop type always executes its body at least once?",
+		answers: [
+			"while",
+			"for",
+			"repeat..until",
+		],
+		correct: 2,
+		hint: "Think about where the condition is checked — before or after the loop body."
+	},
+	{
+		question: "What does the continue command do inside a loop?",
+		answers: [
+			"Exits the loop entirely",
+			"Restarts the loop from the beginning",
+			"Skips the rest of the current iteration and moves to the next one",
+			"Pauses the loop for one frame"
+		],
+		correct: 2,
+		hint: "It's the opposite of break — instead of leaving the loop, it starts a new iteration"
+	}
+]} />

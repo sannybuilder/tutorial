@@ -1,0 +1,33 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+
+const PAGE_TITLE_ID = '_top';
+const { entry } = Astro.props;
+const isHomePage = entry.id === 'index.mdx';
+
+// Calculate reading time from the raw markdown body
+const words = (entry.body ?? '').split(/\s+/).filter(Boolean).length;
+const readingTime = Math.max(1, Math.round(words / 120));
+---
+
+<h1 id={PAGE_TITLE_ID}>{entry.data.title}</h1>
+
+{!isHomePage && (
+	<p class="reading-time">{readingTime} min read</p>
+)}
+
+<style>
+	h1 {
+		margin-top: 1rem;
+		font-size: var(--sl-text-h1);
+		line-height: var(--sl-line-height-headings);
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+
+	.reading-time {
+		margin-top: 0.25rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+</style>

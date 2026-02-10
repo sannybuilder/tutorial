@@ -1,0 +1,43 @@
+---
+title: "Quiz: Introducing Loops"
+description: Test your knowledge of the loops chapter
+slug: quiz-ch02
+---
+
+import Quiz from '../../../components/Quiz.astro';
+
+<Quiz questions={[
+	{
+		question: "Why must you include a wait command inside a loop?",
+		answers: [
+			"It makes the loop run faster",
+			"It prevents the game from freezing by giving it time to process other things",
+			"The loop won't compile without it",
+			"It counts the number of iterations"
+		],
+		correct: 1,
+		hint: "The game is single-threaded. If a script runs continuously without pausing, nothing else gets a chance to run."
+	},
+	{
+		question: "What does wait 0 do?",
+		answers: [
+			"It does nothing and is ignored",
+			"It waits for exactly zero seconds (no effect)",
+			"It pauses the script for one game frame",
+			"It crashes the script"
+		],
+		correct: 2,
+		hint: "Even a wait of 0 milliseconds has a special meaning — it still yields control."
+	},
+	{
+		question: "In a while true loop, how do you exit the loop?",
+		answers: [
+			"The loop exits automatically if it runs for too long",
+			"Use the break command",
+			"Use the continue command to exit the loop and continue executing the script",
+			"You can't — it runs indefinitely"
+		],
+		correct: 1,
+		hint: "There is a specific command designed to exit a loop early."
+	}
+]} />

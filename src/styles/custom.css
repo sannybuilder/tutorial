@@ -1,1 +1,20 @@
 /* Custom CSS for Sanny Builder Tutorial */
+
+/* Sidebar progress checkmarks (injected dynamically via JS) */
+.sidebar-content a {
+	display: flex;
+	align-items: center;
+}
+
+.sl-progress-check {
+	display: none;
+	flex-shrink: 0;
+	margin-inline-start: auto;
+	padding-inline-start: 0.25rem;
+	font-size: 0.75rem;
+	color: var(--sl-color-green);
+}
+
+.sidebar-content a[aria-current='page'] .sl-progress-check {
+	color: var(--sl-color-text-invert);
+}

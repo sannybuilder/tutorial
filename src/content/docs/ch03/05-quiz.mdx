@@ -1,0 +1,43 @@
+---
+title: "Quiz: Conditions"
+description: Test your knowledge of the conditions chapter
+slug: quiz-ch03
+---
+
+import Quiz from '../../../components/Quiz.astro';
+
+<Quiz questions={[
+	{
+		question: "What does IF AND require for the THEN block to execute?",
+		answers: [
+			"At least one condition must be true",
+			"All conditions must be true",
+			"The first condition must be true",
+			"The conditions are checked randomly"
+		],
+		correct: 1,
+		hint: "Think about the difference between 'and' and 'or' in everyday language."
+	},
+	{
+		question: "What is the negated form of the == operator?",
+		answers: [
+			"!=",
+			"!==",
+			"<>",
+			"not=="
+		],
+		correct: 2,
+		hint: "Sanny Builder uses a specific two-character operator for 'not equal to'."
+	},
+	{
+		question: "Why can checking if an object exists and using it in the same if and be dangerous?",
+		answers: [
+			"It makes the code harder to read",
+			"The compiler will reject it",
+			"All conditions are evaluated even if an earlier one fails, which can crash the game",
+			"It uses too much memory"
+		],
+		correct: 2,
+		hint: "Conditions in if and are evaluated eagerly — the game doesn't stop checking after the first failure."
+	}
+]} />

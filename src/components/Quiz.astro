@@ -1,0 +1,288 @@
+---
+export interface Question {
+	question: string;
+	answers: string[];
+	correct: number;
+	hint: string;
+}
+
+interface Props {
+	questions: Question[];
+}
+
+const { questions } = Astro.props;
+---
+
+<div class="quiz not-content" data-total={questions.length}>
+	{questions.map((q, qi) => (
+		<div class="quiz-question" data-correct={q.correct}>
+			<p class="quiz-prompt">
+				<span class="quiz-number">{qi + 1}.</span> {q.question}
+			</p>
+			<div class="quiz-answers">
+				{q.answers.map((answer, ai) => (
+					<label class="quiz-answer">
+						<input type="radio" name={`q${qi}`} value={ai} />
+						<span>{answer}</span>
+					</label>
+				))}
+			</div>
+			<div class="quiz-actions">
+				<button class="quiz-check" disabled>Check answer</button>
+				<details class="quiz-hint-details">
+					<summary class="quiz-hint-toggle">Show hint</summary>
+					<p class="quiz-hint-text">{q.hint}</p>
+				</details>
+			</div>
+			<p class="quiz-feedback" aria-live="polite"></p>
+		</div>
+	))}
+	<div class="quiz-complete-banner" id="quiz-complete-banner" style="display: none;">
+		Quiz completed!
+	</div>
+</div>
+
+<script>
+	function initQuiz() {
+		const PROGRESS_KEY = 'tutorial-progress';
+		const quizContainer = document.querySelector<HTMLElement>('.quiz');
+		if (!quizContainer) return;
+
+		const totalQuestions = Number(quizContainer.dataset.total) || 0;
+		let correctCount = 0;
+
+		function checkQuizComplete() {
+			if (correctCount === totalQuestions) {
+				// Auto-save progress
+				const slug = window.location.pathname.replace(/^\/|\/$/g, '');
+				if (slug) {
+					try {
+						const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+						progress[slug] = true;
+						localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+					} catch {}
+
+					// Update sidebar checkmarks
+					const sidebarLinks = document.querySelectorAll<HTMLAnchorElement>('.sidebar-content a[href]');
+					sidebarLinks.forEach((link) => {
+						const href = link.getAttribute('href') || '';
+						const linkSlug = href.replace(/^\/|\/$/g, '');
+						if (linkSlug === slug) {
+							let check = link.querySelector('.sl-progress-check');
+							if (!check) {
+								check = document.createElement('span');
+								check.className = 'sl-progress-check';
+								check.setAttribute('aria-hidden', 'true');
+								check.textContent = '\u2713';
+								link.appendChild(check);
+							}
+							(check as HTMLElement).style.display = 'inline';
+						}
+					});
+				}
+
+				const banner = document.getElementById('quiz-complete-banner');
+				if (banner) banner.style.display = '';
+			}
+		}
+
+		document.querySelectorAll<HTMLElement>('.quiz-question').forEach((block) => {
+			const correct = Number(block.dataset.correct);
+			const radios = block.querySelectorAll<HTMLInputElement>('input[type="radio"]');
+			const checkBtn = block.querySelector<HTMLButtonElement>('.quiz-check');
+			const feedback = block.querySelector<HTMLElement>('.quiz-feedback');
+			if (!checkBtn || !feedback) return;
+
+			// Enable button when an answer is selected
+			radios.forEach((radio) => {
+				radio.addEventListener('change', () => {
+					checkBtn.disabled = false;
+					// Reset feedback if re-selecting after a check
+					feedback.textContent = '';
+					feedback.className = 'quiz-feedback';
+					block.querySelectorAll('.quiz-answer').forEach((a) => {
+						a.classList.remove('correct', 'incorrect');
+					});
+				});
+			});
+
+			checkBtn.addEventListener('click', () => {
+				const selected = block.querySelector<HTMLInputElement>('input[type="radio"]:checked');
+				if (!selected) return;
+
+				const value = Number(selected.value);
+				const labels = block.querySelectorAll('.quiz-answer');
+
+				// Disable all radios after checking
+				radios.forEach((r) => (r.disabled = true));
+				checkBtn.disabled = true;
+
+				if (value === correct) {
+					feedback.textContent = 'Correct!';
+					feedback.className = 'quiz-feedback correct';
+					labels[value]?.classList.add('correct');
+					correctCount++;
+					checkQuizComplete();
+				} else {
+					feedback.textContent = 'Not quite. Try again!';
+					feedback.className = 'quiz-feedback incorrect';
+					labels[value]?.classList.add('incorrect');
+					// Re-enable radios so user can retry
+					radios.forEach((r) => (r.disabled = false));
+				}
+			});
+		});
+	}
+
+	initQuiz();
+	document.addEventListener('astro:after-swap', initQuiz);
+</script>
+
+<style>
+	.quiz {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.quiz-question {
+		padding: 1.25rem;
+		border: 1px solid var(--sl-color-hairline);
+		border-radius: 0.5rem;
+		background: var(--sl-color-bg-nav);
+	}
+
+	.quiz-prompt {
+		margin: 0 0 1rem;
+		font-weight: 600;
+		color: var(--sl-color-white);
+		line-height: 1.5;
+	}
+
+	.quiz-number {
+		color: var(--sl-color-text-accent);
+	}
+
+	.quiz-answers {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.quiz-answer {
+		display: flex;
+		align-items: baseline;
+		gap: 0.5rem;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--sl-color-hairline);
+		border-radius: 0.375rem;
+		cursor: pointer;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		transition: border-color 0.15s;
+	}
+
+	.quiz-answer:hover {
+		border-color: var(--sl-color-gray-3);
+	}
+
+	.quiz-answer:has(input:checked) {
+		border-color: var(--sl-color-text-accent);
+		color: var(--sl-color-white);
+	}
+
+	.quiz-answer.correct {
+		border-color: var(--sl-color-green);
+		background: hsla(var(--sl-hue-green), 39%, 22%, 0.3);
+	}
+
+	.quiz-answer.incorrect {
+		border-color: var(--sl-color-red);
+		background: hsla(var(--sl-hue-red), 39%, 22%, 0.3);
+	}
+
+	.quiz-answer input[type='radio'] {
+		accent-color: var(--sl-color-text-accent);
+	}
+
+	.quiz-actions {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.5rem;
+	}
+
+	.quiz-check {
+		padding: 0.4rem 1rem;
+		border: 1px solid var(--sl-color-text-accent);
+		border-radius: 0.375rem;
+		background: transparent;
+		color: var(--sl-color-text-accent);
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.15s, color 0.15s;
+	}
+
+	.quiz-check:hover:not(:disabled) {
+		background: var(--sl-color-text-accent);
+		color: var(--sl-color-text-invert);
+	}
+
+	.quiz-check:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+	}
+
+	.quiz-hint-details {
+		font-size: var(--sl-text-sm);
+	}
+
+	.quiz-hint-toggle {
+		color: var(--sl-color-gray-3);
+		cursor: pointer;
+		user-select: none;
+	}
+
+	.quiz-hint-toggle:hover {
+		color: var(--sl-color-gray-2);
+	}
+
+	.quiz-hint-text {
+		margin: 0.5rem 0 0;
+		padding: 0.5rem 0.75rem;
+		border-inline-start: 2px solid var(--sl-color-text-accent);
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-sm);
+	}
+
+	.quiz-feedback {
+		margin: 0.75rem 0 0;
+		font-weight: 600;
+		font-size: var(--sl-text-sm);
+	}
+
+	.quiz-feedback:empty {
+		display: none;
+	}
+
+	.quiz-feedback.correct {
+		color: var(--sl-color-green);
+	}
+
+	.quiz-feedback.incorrect {
+		color: var(--sl-color-red);
+	}
+
+	.quiz-complete-banner {
+		padding: 0.75rem 1rem;
+		border-radius: 0.5rem;
+		background: hsla(var(--sl-hue-green), 39%, 22%, 0.3);
+		border: 1px solid var(--sl-color-green);
+		color: var(--sl-color-green);
+		font-weight: 600;
+		font-size: var(--sl-text-sm);
+		text-align: center;
+	}
+</style>

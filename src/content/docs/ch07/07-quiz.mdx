@@ -1,0 +1,42 @@
+---
+title: "Quiz: Functions"
+description: Test your knowledge of the functions chapter
+slug: quiz-ch07
+---
+
+import Quiz from '../../../components/Quiz.astro';
+
+<Quiz questions={[
+	{
+		question: "How are function parameters passed in Sanny Builder?",
+		answers: [
+			"By reference — changes inside the function affect the original variable",
+			"By value — the function gets a copy, so the original is unchanged",
+			"It depends on the parameter type",
+			"By pointer"
+		],
+		correct: 1,
+		hint: "Think about what happens to a variable in the caller when the function modifies its parameter."
+	},
+	{
+		question: "What is the difference between a logical function and one that returns optional?",
+		answers: [
+			"There is no difference, they are interchangeable",
+			"Logical functions are faster",
+			"A logical function answers yes/no for conditions; an optional function may or may not produce a value",
+			"Optional functions can only return strings"
+		],
+		correct: 2,
+		hint: "One is used in if conditions, the other is used when a result might not exist."
+	},
+	{
+		question: "Where should function definitions be placed in a CLEO script?",
+		answers: [
+			"At the very beginning of the script",
+			"Inside the main loop",
+			"After terminate_this_script, where normal execution flow cannot reach them",
+		],
+		correct: 2,
+		hint: "If the game's execution flow can reach a function definition without calling it, things won't work correctly."
+	}
+]} />

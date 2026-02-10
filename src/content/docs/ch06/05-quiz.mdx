@@ -1,0 +1,43 @@
+---
+title: "Quiz: Arrays"
+description: Test your knowledge of the arrays chapter
+slug: quiz-ch06
+---
+
+import Quiz from '../../../components/Quiz.astro';
+
+<Quiz questions={[
+	{
+		question: "If an array is declared as int scores[5], what are the valid indices?",
+		answers: [
+			"1 to 5",
+			"0 to 5",
+			"0 to 4",
+			"1 to 4"
+		],
+		correct: 2,
+		hint: "Arrays in Sanny Builder are zero-based, and the number in brackets is the total number of elements."
+	},
+	{
+		question: "What does the spread operator (...) do when used with an array?",
+		answers: [
+			"It copies the array to a new variable",
+			"It expands all elements of the array in place as separate parameters",
+			"It reverses the array",
+			"It counts the number of elements"
+		],
+		correct: 1,
+		hint: "Think about how you'd pass three coordinates (x, y, z) stored in an array to a command that expects three separate parameters."
+	},
+	{
+		question: "What happens if you access an array with an index that is out of bounds?",
+		answers: [
+			"The game shows an error message",
+			"It returns zero",
+			"The behavior is unpredictable",
+			"The script terminates safely"
+		],
+		correct: 2,
+		hint: "There are no runtime bounds checks in GTA scripting."
+	}
+]} />

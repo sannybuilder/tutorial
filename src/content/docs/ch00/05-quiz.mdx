@@ -1,0 +1,41 @@
+---
+title: "Quiz: Prerequisites"
+description: Test your knowledge of the prerequisites chapter
+slug: quiz-ch00
+---
+
+import Quiz from '../../../components/Quiz.astro';
+
+<Quiz questions={[
+	{
+		question: "Where should CLEO script files (.cs) be placed for the game to load them?",
+		answers: [
+			"In the Sanny Builder installation folder",
+			"In the data/script folder",
+			"In the CLEO folder inside the game directory",
+			"In the My Documents folder"
+		],
+		correct: 2,
+		hint: "CLEO automatically finds and runs scripts from a specific folder inside the game directory."
+	},
+	{
+		question: "What happens if you compile a script without the {$CLEO} directive?",
+		answers: [
+			"The script won't compile at all",
+			"It compiles into a .cs file anyway",
+			"It compiles into main.scm instead of a .cs file",
+		],
+		correct: 2,
+		hint: "The {$CLEO} directive tells Sanny Builder to produce a CLEO script file. Without it, the default SCM target is used."
+	},
+	{
+		question: "What is the main purpose of using a stripped main.scm?",
+		answers: [
+			"The original main.scm is locked and you can't edit it",
+			"It provides a clean environment for testing scripts",
+			"It makes the game run faster"
+		],
+		correct: 1,
+		hint: "Stripped main.scm removes all story missions and extra scripts."
+	}
+]} />

@@ -1,0 +1,195 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+
+import EditLink from '@astrojs/starlight/components/EditLink.astro';
+import LastUpdated from '@astrojs/starlight/components/LastUpdated.astro';
+import Pagination from '@astrojs/starlight/components/Pagination.astro';
+import config from 'virtual:starlight/user-config';
+import { Icon } from '@astrojs/starlight/components';
+
+const { entry, slug } = Astro.props;
+const isHomePage = entry.id === 'index.mdx';
+const pageTitle = entry.data.title;
+---
+
+{!isHomePage && !slug.startsWith('quiz-') && (
+	<div class="progress-toggle">
+		<label class="progress-label">
+			<input
+				type="checkbox"
+				class="progress-checkbox"
+				data-slug={slug}
+				data-title={pageTitle}
+			/>
+			<span>Mark as complete</span>
+		</label>
+	</div>
+)}
+
+<footer class="sl-flex">
+	<div class="meta sl-flex">
+		<EditLink {...Astro.props} />
+		<LastUpdated {...Astro.props} />
+	</div>
+	<Pagination {...Astro.props} />
+
+	{
+		config.credits && (
+			<a class="kudos sl-flex" href="https://starlight.astro.build">
+				<Icon name={'starlight'} />{' '}
+				{(Astro.locals as any).t('builtWithStarlight.label')}
+			</a>
+		)
+	}
+</footer>
+
+<script>
+	const PROGRESS_KEY = 'tutorial-progress';
+
+	function getProgress(): Record<string, boolean> {
+		try {
+			return JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+		} catch {
+			return {};
+		}
+	}
+
+	function initProgress() {
+		const checkbox = document.querySelector<HTMLInputElement>('.progress-checkbox');
+		if (!checkbox) return;
+
+		const slug = checkbox.dataset.slug;
+		if (!slug) return;
+
+		// Load current completion state
+		const progress = getProgress();
+
+		if (progress[slug]) {
+			checkbox.checked = true;
+			updateLabel(true);
+		}
+
+		// Toggle completion on change
+		checkbox.addEventListener('change', () => {
+			try {
+				const current = getProgress();
+				if (checkbox.checked) {
+					current[slug] = true;
+				} else {
+					delete current[slug];
+				}
+				localStorage.setItem(PROGRESS_KEY, JSON.stringify(current));
+			} catch {}
+
+			updateLabel(checkbox.checked);
+			updateSidebarChecks();
+		});
+
+		function updateLabel(complete: boolean) {
+			const label = checkbox?.parentElement?.querySelector('span');
+			if (label) {
+				label.textContent = complete ? 'Completed' : 'Mark as complete';
+			}
+		}
+	}
+
+	function updateSidebarChecks() {
+		const progress = getProgress();
+		const sidebarLinks = document.querySelectorAll<HTMLAnchorElement>(
+			'.sidebar-content a[href]'
+		);
+
+		sidebarLinks.forEach((link) => {
+			const href = link.getAttribute('href') || '';
+			const slug = href.replace(/^\/|\/$/g, '');
+			if (!slug) return;
+
+			// Find or create the checkmark element
+			let check = link.querySelector('.sl-progress-check');
+			if (!check) {
+				check = document.createElement('span');
+				check.className = 'sl-progress-check';
+				check.setAttribute('aria-hidden', 'true');
+				check.textContent = '\u2713';
+				link.appendChild(check);
+			}
+
+			if (progress[slug]) {
+				(check as HTMLElement).style.display = 'inline';
+			} else {
+				(check as HTMLElement).style.display = 'none';
+			}
+		});
+	}
+
+	// Run on initial load and on Astro page transitions (View Transitions)
+	initProgress();
+	updateSidebarChecks();
+	document.addEventListener('astro:after-swap', () => {
+		initProgress();
+		updateSidebarChecks();
+	});
+</script>
+
+<style>
+	.progress-toggle {
+		margin-top: 2rem;
+		padding: 1rem;
+		border: 1px solid var(--sl-color-hairline);
+		border-radius: 0.5rem;
+		text-align: center;
+	}
+
+	.progress-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		cursor: pointer;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		user-select: none;
+	}
+
+	.progress-checkbox {
+		width: 1.25rem;
+		height: 1.25rem;
+		cursor: pointer;
+		accent-color: var(--sl-color-text-accent);
+	}
+
+	.progress-checkbox:checked + span {
+		color: var(--sl-color-text-accent);
+		font-weight: 600;
+	}
+
+	footer {
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+	.meta {
+		gap: 0.75rem 3rem;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		margin-top: 3rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+	.meta > :global(p:only-child) {
+		margin-inline-start: auto;
+	}
+
+	.kudos {
+		align-items: center;
+		gap: 0.5em;
+		margin: 1.5rem auto;
+		font-size: var(--sl-text-xs);
+		text-decoration: none;
+		color: var(--sl-color-gray-3);
+	}
+	.kudos :global(svg) {
+		color: var(--sl-color-orange);
+	}
+	.kudos:hover {
+		color: var(--sl-color-white);
+	}
+</style>

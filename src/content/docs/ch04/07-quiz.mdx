@@ -1,0 +1,43 @@
+---
+title: "Quiz: Working with Text"
+description: Test your knowledge of the text chapter
+slug: quiz-ch04
+---
+
+import Quiz from '../../../components/Quiz.astro';
+
+<Quiz questions={[
+	{
+		question: "What is the difference between single quotes and double quotes in Sanny Builder?",
+		answers: [
+			"There is no difference, they are interchangeable",
+			"Single quotes are for short string literals (up to 8 characters), double quotes are for longer strings",
+			"Single quotes are for numbers, double quotes are for text",
+			"Double quotes are for GXT keys, single quotes are for text"
+		],
+		correct: 1,
+		hint: "Short string literals are limited to 8 characters, while long string literals can be up to 255 characters."
+	},
+	{
+		question: "Which placeholder does CLEO use for integer values in formatted messages?",
+		answers: [
+			"~1~",
+			"%f",
+			"%d",
+			"%s"
+		],
+		correct: 2,
+		hint: "CLEO uses C++-style format specifiers."
+	},
+	{
+		question: "What does the native placeholder ~1~ represent in a GTA text string?",
+		answers: [
+			"The first character of the string",
+			"A line break",
+			"A placeholder for a number that gets replaced at runtime",
+			"The color red"
+		],
+		correct: 2,
+		hint: "The game uses a certain format to display the string with the number."
+	}
+]} />

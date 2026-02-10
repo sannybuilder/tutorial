@@ -1,0 +1,185 @@
+---
+// This component is entirely client-side driven.
+// It reads progress from localStorage and links to the first incomplete lesson.
+---
+
+<div class="tutorial-status" id="tutorial-status" style="display: none;">
+	<div class="progress-section">
+		<div class="stat-row">
+			<span class="stat-label">Lessons Completed</span>
+			<span class="stat-value" id="lesson-stat"></span>
+		</div>
+		<div class="stat-row">
+			<span class="stat-label">Quizzes Passed</span>
+			<span class="stat-value" id="quiz-stat"></span>
+		</div>
+		<div class="stat-row stat-row-total">
+			<span class="stat-label">Progress Total</span>
+			<span class="stat-value" id="total-stat"></span>
+		</div>
+	</div>
+
+	<div class="continue-section" id="continue-section" style="display: none;">
+		<a class="continue-link" id="continue-link" href="/">
+			<span>Continue with </span>
+			<span class="continue-title" id="continue-title"></span>
+			<span class="continue-arrow" aria-hidden="true">&rarr;</span>
+		</a>
+	</div>
+</div>
+
+<script>
+	function initTutorialStatus() {
+		const PROGRESS_KEY = 'tutorial-progress';
+
+		const container = document.getElementById('tutorial-status');
+		if (!container) return;
+
+		// Collect all sidebar links, separating lessons from quizzes
+		const allSidebarLinks = document.querySelectorAll<HTMLAnchorElement>(
+			'.sidebar-content a[href]'
+		);
+		const lessons: { slug: string; link: HTMLAnchorElement }[] = [];
+		const quizzes: { slug: string; link: HTMLAnchorElement }[] = [];
+		allSidebarLinks.forEach((link) => {
+			const href = link.getAttribute('href') || '';
+			const slug = href.replace(/^\/|\/$/g, '');
+			if (!slug) return;
+			if (slug.startsWith('quiz-')) {
+				quizzes.push({ slug, link });
+			} else {
+				lessons.push({ slug, link });
+			}
+		});
+
+		const totalLessons = lessons.length;
+		if (totalLessons === 0) return;
+
+		// Read progress from localStorage
+		let progress: Record<string, boolean> = {};
+		try {
+			progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+		} catch {}
+
+		// Count completed
+		const completedLessons = lessons.filter(({ slug }) => progress[slug]).length;
+		const totalQuizzes = quizzes.length;
+		const completedQuizzes = quizzes.filter(({ slug }) => progress[slug]).length;
+
+		// Update lesson stat
+		const lessonStat = document.getElementById('lesson-stat');
+		if (lessonStat) {
+			lessonStat.textContent = `${completedLessons} of ${totalLessons}`;
+		}
+
+		// Update quiz stat
+		const quizStat = document.getElementById('quiz-stat');
+		if (quizStat && totalQuizzes > 0) {
+			quizStat.textContent = `${completedQuizzes} of ${totalQuizzes}`;
+		}
+
+		// Update total progress percentage
+		const totalStat = document.getElementById('total-stat');
+		if (totalStat) {
+			const totalItems = totalLessons + totalQuizzes;
+			const totalCompleted = completedLessons + completedQuizzes;
+			const pct = Math.round((totalCompleted / totalItems) * 100);
+			totalStat.textContent = `${pct} of 100%`;
+		}
+
+		container.style.display = '';
+
+		// Find the first incomplete lesson (not quiz) and link to it
+		if (completedLessons < totalLessons) {
+			const firstIncomplete = lessons.find(({ slug }) => !progress[slug]);
+			if (firstIncomplete) {
+				const href = firstIncomplete.link.getAttribute('href') || '';
+				const label = firstIncomplete.link.textContent?.trim() || '';
+
+				const continueSection = document.getElementById('continue-section');
+				const continueLink = document.getElementById('continue-link') as HTMLAnchorElement | null;
+				const continueTitle = document.getElementById('continue-title');
+
+				if (continueSection && continueLink && continueTitle && label) {
+					continueTitle.textContent = label;
+					continueLink.href = href;
+					continueSection.style.display = '';
+				}
+			}
+		}
+	}
+
+	initTutorialStatus();
+	document.addEventListener('astro:after-swap', initTutorialStatus);
+</script>
+
+<style>
+	.tutorial-status {
+		margin-top: 1.5rem;
+		padding: 1rem 1.25rem;
+		border: 1px solid var(--sl-color-hairline);
+		border-radius: 0.5rem;
+		background: var(--sl-color-bg-nav);
+	}
+
+	.stat-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		font-size: var(--sl-text-sm);
+	}
+
+	.stat-label {
+		color: var(--sl-color-gray-2);
+	}
+
+	.stat-value {
+		color: var(--sl-color-gray-3);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.stat-value:empty::after {
+		content: '\2014';
+		color: var(--sl-color-gray-4);
+	}
+
+	.stat-row-total {
+		margin-top: 0.25rem;
+		padding-top: 0.5rem;
+		border-top: 1px solid var(--sl-color-hairline);
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+
+	.stat-row-total .stat-label,
+	.stat-row-total .stat-value {
+		color: var(--sl-color-white);
+	}
+
+	.continue-section {
+		margin-top: 0.75rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+
+	.continue-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-text-accent);
+		text-decoration: none;
+	}
+
+	.continue-link:hover {
+		text-decoration: underline;
+	}
+
+	.continue-title {
+		font-weight: 600;
+	}
+
+	.continue-arrow {
+		font-size: 1rem;
+	}
+</style>
