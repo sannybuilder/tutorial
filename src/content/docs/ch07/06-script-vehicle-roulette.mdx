@@ -165,7 +165,7 @@ loadModel(currentModel)
 currentCar = spawnNearPlayer(currentModel)
 ```
 
-`generate_random_int_in_range` picks an index between `0` (inclusive) and `NUM_VEHICLES` (exclusive). That index pulls a model ID from the array, which flows through `loadModel` and `spawnNearPlayer`.
+`generate_random_int_in_range` picks an index between `0` (inclusive) and `NUM_VEHICLES` (exclusive). If `NUM_VEHICLES` is `8`, the possible index to return are `0` to `7`, which matches the valid indices of the `models` array. That index pulls a model ID from the array, which flows through `loadModel` and `spawnNearPlayer`.
 
 Save the file as `vehicle_roulette.txt`, press `F7`, and try your luck!
 
