@@ -42,9 +42,7 @@ PRINT_HELP_STRING {text} "San Andreas"
 
 Notice that because the text is longer than 8 characters, you need to use double quotes.
 
-## Mission Text
-
-Here is some other message commands and their CLEO counterpart:
+## Subtitles
 
 **PRINT_NOW**
 
@@ -53,6 +51,25 @@ Here is some other message commands and their CLEO counterpart:
 | `PRINT_NOW {key} 'SAN_AND' {duration} 3000 {style} 1` | `PRINT_STRING_NOW {text} "San Andreas" {duration} 3000` |
 
 <img src="/img/ch-04-02-2.png" alt="PRINT_NOW Example" />
+
+**PRINT**
+| Native Command | CLEO Command |
+| ----------------------------------------------------- | ------------------------------------------------------- |
+| `PRINT {key} 'SAN_AND' {duration} 3000 {style} 1` | `PRINT_STRING {text} "San Andreas" {duration} 3000` |
+
+<img src="/img/ch-04-02-2.png" alt="PRINT_NOW Example" />
+
+`PRINT` has lower priority than `PRINT_NOW`. If there is another message being displayed, the `PRINT` command will wait until the previous message disappears, while `PRINT_NOW` will replace it immediately. You can use this behavior to create a sequence of messages that appear one after another, for example:
+
+```sb
+PRINT_STRING {text} "First message" {duration} 3000
+PRINT_STRING {text} "Second message" {duration} 3000
+PRINT_STRING {text} "Third message" {duration} 3000
+```
+
+You can chain up to 8 messages in this way.
+
+## Styled Messages
 
 **PRINT_BIG**
 

@@ -1,7 +1,174 @@
 ---
 title: Text Draws
-description: Text Draws
+description: Displaying text at specific screen coordinates
 slug: text-draws
+tableOfContents: true
 ---
 
-TBD
+Text draws are short text elements displayed at specific coordinates on the screen. Unlike [help boxes](/basic-messages#help-boxes) or [subtitles](/basic-messages#subtitles) that appear at fixed locations, text draws give you full control over where and how the text is rendered. They are commonly used to display information such as player position, debug values, or custom HUD elements.
+
+## How Text Draws Work
+
+The `DISPLAY_TEXT` command shows a GXT text entry at a given position on the screen. The X and Y coordinates are based on a 640 × 448 resolution, which comes from the PS2 version of the games. On different resolutions, these positions are scaled accordingly.
+
+You should always wrap text draw commands with `USE_TEXT_COMMANDS` to prevent unintended side effects like permanent display or game crashes:
+
+```sb
+use_text_commands {state} true
+display_text {offsetLeft} 200.0 {offsetTop} 100.0 {key} 'MY_TEXT'
+use_text_commands {state} false
+```
+
+San Andreas supports up to 96 text draws on screen at the same time. Each text must be less than 100 characters long.
+
+:::note
+If you're familiar with the concept of [Immediate Mode](https://en.wikipedia.org/wiki/Immediate_mode_GUI) in game development, you'll find that text draws follow a similar pattern. The state is reset after each frame.
+:::
+
+## Setup Commands
+
+Before calling `DISPLAY_TEXT`, you can use various setup commands to control how the text looks. These commands affect the next `DISPLAY_TEXT` call only, so you need to set them up each time.
+
+Here is a basic example that displays red text with a custom scale at position (100.0, 50.0):
+
+```sb
+use_text_commands {state} true
+set_text_colour {red} 255 {green} 0 {blue} 0 {alpha} 255
+set_text_scale {widthX} 0.5 {heightY} 1.5
+set_text_font {font} 1
+display_text {offsetLeft} 100.0 {offsetTop} 50.0 {key} 'DEAD'
+use_text_commands {state} false
+```
+
+The order of setup commands does not matter, as long as they come before `DISPLAY_TEXT`.
+
+## Color and Scale
+
+`SET_TEXT_COLOUR` sets the text color using RGBA values, where each component ranges from 0 to 255:
+
+```sb
+set_text_colour {red} 255 {green} 255 {blue} 0 {alpha} 255
+```
+
+Setting alpha to 0 makes the text black.
+
+`SET_TEXT_SCALE` controls the width and height of the text:
+
+```sb
+set_text_scale {widthX} 0.48 {heightY} 1.12
+```
+
+The default scale in San Andreas is roughly 0.48 × 1.12.
+
+## Alignment
+
+By default, text is left-aligned. You can change the alignment with `SET_TEXT_CENTRE` or `SET_TEXT_RIGHT_JUSTIFY`:
+
+```sb
+set_text_centre {state} true
+```
+
+```sb
+set_text_right_justify {state} true
+```
+
+When using center alignment, use `SET_TEXT_CENTRE_SIZE` to set the width of the centered area:
+
+```sb
+set_text_centre {state} true
+set_text_centre_size {width} 400.0
+```
+
+## Text Wrapping
+
+`SET_TEXT_WRAPX` controls where the text wraps to the next line. The value is a screen position (not a width), so a wrap x of `400.0` means the text will wrap when it reaches the `400.0` mark on the screen:
+
+```sb
+set_text_wrapx {width} 400.0
+```
+
+If your text is being cut off or wrapping too early, adjusting this value is usually the fix.
+
+## Font
+
+`SET_TEXT_FONT` selects which font to use. The available fonts depend on the game:
+
+```sb
+set_text_font {font} 2
+```
+
+## Background
+
+`SET_TEXT_BACKGROUND` adds a dark rectangle behind the text, making it easier to read over busy scenes:
+
+```sb
+set_text_background {state} true
+```
+
+## Other Options
+
+`SET_TEXT_PROPORTIONAL` enables proportional character spacing, where each character takes up only as much width as it needs. When disabled, all characters occupy the same width:
+
+```sb
+set_text_proportional {state} true
+```
+
+`SET_TEXT_DRAW_BEFORE_FADE` controls whether the text draw renders before or after screen fading effects:
+
+```sb
+set_text_draw_before_fade {state} true
+```
+
+## Displaying Numbers
+
+If you need to display a GXT text that includes numeric placeholders (`~1~`), use `DISPLAY_TEXT_WITH_NUMBER` or `DISPLAY_TEXT_WITH_2_NUMBERS`:
+
+```sb
+use_text_commands {state} true
+display_text_with_number {offsetLeft} 100.0 {offsetTop} 50.0 {key} 'BJ_0' {number} 42
+use_text_commands {state} false
+```
+
+```sb
+use_text_commands {state} true
+display_text_with_2_numbers {offsetLeft} 100.0 {offsetTop} 50.0 {key} 'BJ_OR2' {number1} 10 {number2} 20
+use_text_commands {state} false
+```
+
+## Putting It All Together
+
+Here is a more complete example that displays a centered, yellow text with a background:
+
+```sb
+while true
+    wait 0
+    use_text_commands {state} true
+    set_text_colour {red} 255 {green} 255 {blue} 0 {alpha} 255
+    set_text_scale {widthX} 0.6 {heightY} 1.5
+    set_text_font {font} 1
+    set_text_centre {state} true
+    set_text_centre_size {width} 500.0
+    set_text_background {state} true
+    set_text_proportional {state} true
+    set_text_draw_before_fade {state} true
+    display_text {offsetLeft} 320.0 {offsetTop} 200.0 {key} 'MY_TEXT'
+    use_text_commands {state} false
+end
+```
+
+## Drawing Text With CLEO 5
+
+CLEO 5 offers a more flexible way to draw text using `DISPLAY_TEXT_FORMATTED`. This command allows you to use any text and format specifiers (like `%d` for integers). This is especially useful for dynamic text that changes based on game variables.
+
+```
+while true
+   wait 0 // draw each frame
+   use_text_commands {state} true
+   display_text_formatted {offsetLeft} 50.0 {offsetTop} 100.0 {format} "Simple text"
+   display_text_formatted {offsetLeft} 50.0 {offsetTop} 200.0 {format} "Timer: %d" {args} TIMERA
+end
+```
+
+:::tip
+For the complete reference of each command and its parameters, visit [the Text class](https://library.sannybuilder.com/#/sa/script/classes/Text) in Sanny Builder Library.
+:::
