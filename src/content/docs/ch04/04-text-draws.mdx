@@ -15,14 +15,14 @@ You should always wrap text draw commands with `USE_TEXT_COMMANDS` to prevent un
 
 ```sb
 use_text_commands {state} true
-display_text {offsetLeft} 200.0 {offsetTop} 100.0 {key} 'MY_TEXT'
+display_text {offsetLeft} 200.0 {offsetTop} 100.0 {key} 'GXT_KEY'
 use_text_commands {state} false
 ```
 
 San Andreas supports up to 96 text draws on screen at the same time. Each text must be less than 100 characters long.
 
 :::note
-If you're familiar with the concept of [Immediate Mode](https://en.wikipedia.org/wiki/Immediate_mode_GUI) in game development, you'll find that text draws follow a similar pattern. The state is reset after each frame.
+If you're familiar with the concept of [Immediate Mode](https://en.wikipedia.org/wiki/Immediate_mode_GUI) in game development, you'll find that text draws follow a similar pattern. The state is reset after each frame. For more persistent text, you need to call the display command every frame, which is typically done inside [a loop](#loops) with `wait 0`.
 :::
 
 ## Setup Commands
@@ -141,7 +141,7 @@ Here is a more complete example that displays a centered, yellow text with a bac
 
 ```sb
 while true
-    wait 0
+    wait 0 // draw each frame
     use_text_commands {state} true
     set_text_colour {red} 255 {green} 255 {blue} 0 {alpha} 255
     set_text_scale {widthX} 0.6 {heightY} 1.5
@@ -162,10 +162,11 @@ CLEO 5 offers a more flexible way to draw text using `DISPLAY_TEXT_FORMATTED`. T
 
 ```
 while true
-   wait 0 // draw each frame
-   use_text_commands {state} true
-   display_text_formatted {offsetLeft} 50.0 {offsetTop} 100.0 {format} "Simple text"
-   display_text_formatted {offsetLeft} 50.0 {offsetTop} 200.0 {format} "Timer: %d" {args} TIMERA
+    wait 0
+    use_text_commands {state} true
+    display_text_formatted {offsetLeft} 50.0 {offsetTop} 100.0 {format} "Simple text"
+    display_text_formatted {offsetLeft} 50.0 {offsetTop} 200.0 {format} "Timer: %d" {args} TIMERA
+    use_text_commands {state} false
 end
 ```
 
