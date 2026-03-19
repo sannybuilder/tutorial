@@ -42,7 +42,7 @@ use_text_commands {state} false
 
 The order of setup commands does not matter, as long as they come before `DISPLAY_TEXT`.
 
-## Color and Scale
+### Color and Scale
 
 `SET_TEXT_COLOUR` sets the text color using RGBA values, where each component ranges from 0 to 255:
 
@@ -60,7 +60,7 @@ set_text_scale {widthX} 0.48 {heightY} 1.12
 
 The default scale in San Andreas is roughly 0.48 × 1.12.
 
-## Alignment
+### Alignment
 
 By default, text is left-aligned. You can change the alignment with `SET_TEXT_CENTRE` or `SET_TEXT_RIGHT_JUSTIFY`:
 
@@ -79,7 +79,7 @@ set_text_centre {state} true
 set_text_centre_size {width} 400.0
 ```
 
-## Text Wrapping
+### Text Wrapping
 
 `SET_TEXT_WRAPX` controls where the text wraps to the next line. The value is a screen position (not a width), so a wrap x of `400.0` means the text will wrap when it reaches the `400.0` mark on the screen:
 
@@ -89,7 +89,7 @@ set_text_wrapx {width} 400.0
 
 If your text is being cut off or wrapping too early, adjusting this value is usually the fix.
 
-## Font
+### Font
 
 `SET_TEXT_FONT` selects which font to use. The available fonts depend on the game:
 
@@ -97,7 +97,7 @@ If your text is being cut off or wrapping too early, adjusting this value is usu
 set_text_font {font} 2
 ```
 
-## Background
+### Background
 
 `SET_TEXT_BACKGROUND` adds a dark rectangle behind the text, making it easier to read over busy scenes:
 
@@ -105,7 +105,7 @@ set_text_font {font} 2
 set_text_background {state} true
 ```
 
-## Other Options
+### Other Options
 
 `SET_TEXT_PROPORTIONAL` enables proportional character spacing, where each character takes up only as much width as it needs. When disabled, all characters occupy the same width:
 
